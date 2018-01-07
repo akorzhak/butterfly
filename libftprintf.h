@@ -28,6 +28,7 @@ typedef struct		s_param
 }					t_param;
 
 int		ft_printf(const char	*format, ...);
+int		ft_printarg(t_param *ptr, char **f, va_list arg);
 //int		ft_printint(t_param params, char **f, va_list arg);
 
 //int		get_next_line(const int fd, char **line); */

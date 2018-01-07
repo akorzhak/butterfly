@@ -67,7 +67,7 @@ int		ft_readparams(char **format, va_list arg) //everything after %, excluding %
 	// printf("width: %d\n", ptr->wd);
 	// printf("precision: %d\n", ptr->pr);
 	// printf("length: %c\n", ptr->len);
-	return (ft_printarg(ptr, f, arg));
+	return (ft_printarg(ptr, &f, arg));
 }
 
 int		ft_printf(const char *format, ...)
