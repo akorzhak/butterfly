@@ -12,7 +12,7 @@
 
 #include "libftprintf.h"
 
-int		ft_nblen(int nb, char fg)
+/*int		ft_nblen(int nb, char fg)
 {
 	int n;
 	int i;
@@ -34,18 +34,16 @@ int		ft_nblen(int nb, char fg)
 		n *= 10;
 	}
 	return (i);
-}
+} */
 
 int		ft_printint(t_param *ptr, char **f, va_list arg)
 {
-	void nb; 
-	int i;
-	int len;
+//	void nb; 
+//	int i;
+//	int len;
 
-	nb = ft_getnb(arg, int, ptr->len);
-	len = ft_nblen(nb, fg);
-	if ((wd > len) && (wd >= pr))
-		return (wd);
-	else if ((pr > len) && (pr > wd))
-		return (pr);
-	return (len);
+//	nb = ft_getnb(arg, int, ptr->len);
+//	len = ft_nblen(nb, fg);
+	return (0);
+}
+

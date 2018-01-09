@@ -17,8 +17,8 @@ int		ft_printarg(t_param *ptr, char **f, va_list arg)
 	int ret;
 
 	ret = 0;
-	if (**f == 'i' || **f == 'd')
-		ret = ft_printint(ptr, f, arg);
+	//if (**f == 'i' || **f == 'd')
+//		ret = ft_printint(ptr, f, arg);
 	//printf("qqqqq%d\n", ret);
 	/*else if (**f == 'c')
 		ft_printchar(fl, wd, pr, len, f, arg);

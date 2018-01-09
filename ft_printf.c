@@ -40,10 +40,10 @@ int		ft_getint(char **f, va_list arg, int param)
 
 int		ft_readparams(char **format, va_list arg) //everything after %, excluding %
 {
-	t_param *ptr;
+	t_flags *ptr;
 	int i;
 	char *f;
-	if (!(ptr = (t_param *)ft_memalloc(sizeof(t_param))))
+	if (!(ptr = (t_flags *)ft_memalloc(sizeof(t_flags))))
 		return (0);
 	ptr->fl = 0;
 	ptr->wd = 0;
@@ -67,44 +67,32 @@ int		ft_readparams(char **format, va_list arg) //everything after %, excluding %
 	// printf("width: %d\n", ptr->wd);
 	// printf("precision: %d\n", ptr->pr);
 	// printf("length: %c\n", ptr->len);
-	return (ft_printarg(ptr, &f, arg));
+	return (0);//(ft_printarg(ptr, &f, arg));
 }
 
 int		ft_printf(const char *format, ...)
 {
-	char *fstr;
+	char *s;
+	char *c;
 	int i;
 	va_list arg;
-	int flag;
 
-	va_start(arg, format);
-	fstr = (char *)format;
-	flag = 0;
+	s = (char *)format;
 	i = 0;
-	while (*fstr)
+	va_start(arg, format);
+	while (*s)
 	{
-		while (*fstr != '%' && *fstr)
-			ft_putchar(*fstr++);	
-		if (*fstr == '%' && *(fstr + 1) == '%') //the 2nd %
+		if (!ft_strchr(s, '%'))
 		{
-			ft_putchar('%');  //(*fstr++);
-			fstr = fstr + 2;
-			flag++;
+			i += write(1, s, ft_strlen(s));
+			break ;
 		}
-		else if (*fstr == '%' && *(fstr + 1) != '%')
+		else if ((c = ft_strchr(s, '%'))) //if '%' is found, assign c to %...
 		{
-			i = fstr - format;
-		//	printf("%s\n", "Hello");
-			fstr++;
-		//	printf("%s\n", fstr);
-		//	printf("%d\n", i);
-			i += ft_readparams(&fstr, arg);
-			fstr++;
-		}
-		if (!*fstr) //fstr has to plus itself no matter what
-		{
-			(!i) ? (i = fstr - format - flag) : 0;
-			return (i);
+			if (c - s > 0)
+				i += write(1, s, c - s);
+			i += ft_readparams(&c, arg); //%...
+			s = c;
 		}
 	}
 	va_end(arg);

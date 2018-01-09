@@ -19,13 +19,24 @@
 
 //# define BUFF_SIZE 8
 
-typedef struct		s_param
+typedef struct		s_flags
 {
-	char			*fl;
-	int				wd;	
-	int				pr;
-	char			len;
-}					t_param;
+	char			min;
+	char			plus;
+	char			space;
+	char			sharp;
+	char			zero;
+	int				width;	//intmax_t??
+	int				prec;
+	char			hh;
+	char			ll;	
+	char			h;
+	char			l;
+	char			j;
+	char			z;
+	char			t;
+	char			L;
+}					t_flags;
 
 int		ft_printf(const char	*format, ...);
 int		ft_printarg(t_param *ptr, char **f, va_list arg);
