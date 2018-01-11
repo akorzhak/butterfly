@@ -14,9 +14,9 @@
 
 int		main(void)
 {
-	char str[] = "Hello, worldff%%23";
+	char str[] = "Hello, worldff%-+23.3hda";
 //	printf("%s\n", "1 ----------------------  12345");
-	printf("\nbm %d\n", ft_printf("Hello, worldf"));
+	printf("\nbm %d\n", ft_printf("Hello, worldff%-+23.3hd", 135));
 //	printf("\nb %+-d\n", printf(str, -12345));
 //	printf("%s\n", "2 ----------------------  12345");
 //	printf("\nbm %d\n", ft_printf(str, -12345));

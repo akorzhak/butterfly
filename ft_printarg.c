@@ -12,13 +12,18 @@
 
 #include "libftprintf.h"
 
-int		ft_printarg(t_param *ptr, char **f, va_list arg)
+int		ft_printarg(t_flags *ptr, char **f, va_list arg)
 {
 	int ret;
 
 	ret = 0;
-	//if (**f == 'i' || **f == 'd')
-//		ret = ft_printint(ptr, f, arg);
+	if (**f == '%')
+	{
+		ft_putchar('%');
+		return (1);
+	}
+	else if (ft_strchr("pdDioOuUxX", **f))
+		ret = ft_printnb(ptr, f, arg);
 	//printf("qqqqq%d\n", ret);
 	/*else if (**f == 'c')
 		ft_printchar(fl, wd, pr, len, f, arg);

@@ -16,8 +16,9 @@
 # include "libft/libft.h"
 # include <stdarg.h>
 # include <stdio.h> //temp
+# include <stdint.h> //for intmax_t && uintmax_t
 
-//# define BUFF_SIZE 8
+# define ABS(Value) (Value < 0) ? (-Value) : (Value)
 
 typedef struct		s_flags
 {
@@ -34,14 +35,14 @@ typedef struct		s_flags
 	char			l;
 	char			j;
 	char			z;
-	char			t;
-	char			L;
 }					t_flags;
 
 int		ft_printf(const char	*format, ...);
-int		ft_printarg(t_param *ptr, char **f, va_list arg);
-//int		ft_printint(t_param params, char **f, va_list arg);
-
-//int		get_next_line(const int fd, char **line); */
+void	ft_addsize(t_flags *ptr, char **f);
+void	ft_addflags(t_flags *ptr, char **f);
+int		ft_printarg(t_flags *ptr, char **f, va_list arg);
+int		ft_printnb(t_flags *ptr, char **f, va_list arg);
+char	*ft_get_unb(t_flags *ptr, char **f, va_list arg);
+char	*ft_get_snb(t_flags *ptr, char **f, va_list arg);
 
 #endif
