@@ -25,7 +25,7 @@ static int			size_of_arr(uintmax_t value, int base)
 	return (len);
 }
 
-static char				*ft_u_itoa_base(uintmax_t value, int base)
+static char			*ft_u_itoa_base(uintmax_t value, int base)
 {
 	char			*arr;
 	int				len;

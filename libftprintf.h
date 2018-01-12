@@ -28,7 +28,7 @@ typedef struct		s_flags
 	char			sharp;
 	char			zero;
 	int				width;	//intmax_t??
-	int				prec;
+	int				prc;
 	char			hh;
 	char			ll;	
 	char			h;

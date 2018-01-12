@@ -14,9 +14,13 @@
 
 int		main(void)
 {
+	int a;
+
+	a = 0;
 	char str[] = "Hello, worldff%-+23.3hda";
 //	printf("%s\n", "1 ----------------------  12345");
-	printf("\nbm %d\n", ft_printf("Hello, worldff%-+23.3hd", 135));
+	printf("= bm %d\n", ft_printf("Hello, worldff %p", &a));
+	printf("= bp %d\n", printf("Hello, worldff %p", &a));
 //	printf("\nb %+-d\n", printf(str, -12345));
 //	printf("%s\n", "2 ----------------------  12345");
 //	printf("\nbm %d\n", ft_printf(str, -12345));
