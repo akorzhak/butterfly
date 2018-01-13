@@ -98,6 +98,7 @@ int			ft_printnb(t_flags *ptr, char **f, va_list arg)
 		i = ft_zero_plus_space(ptr, nb);
 	else
 		i = write(1, nb, ft_strlen(nb));
+	ft_strdel(&nb);
 	return (i);
 }
 
