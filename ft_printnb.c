@@ -79,11 +79,18 @@ int			ft_printnb(t_flags *ptr, char **f, va_list arg)
 {
 	int 	i = 1;
 	char 	*nb;
+	char	*temp;
 
 	if (ft_strchr("OoUuXxp", **f))
 		nb = ft_get_unb(ptr, f, arg); //**f is on d for e.g.
 	else
 		nb = ft_get_snb(ptr, f, arg); //maybe to pass the address of nb into func!
+	if (**f == 'p')
+	{
+		temp = nb;
+		nb = ft_strjoin("0x7fff", nb);
+		ft_strdel(&temp);
+	}
 	(*f)++;
 	if (ptr->min) //|| (ptr->min && (ptr->plus || ptr->space)))//0 is ign. with -, ' ' is ign. with +
 		i = ft_min(ptr, nb);

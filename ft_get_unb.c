@@ -25,7 +25,7 @@ static int			size_of_arr(uintmax_t value, int base)
 	return (len);
 }
 
-static char			*ft_u_itoa_base(uintmax_t value, int base)
+static char			*ft_u_itoa_base(uintmax_t value, int base, char a)
 {
 	char			*arr;
 	int				len;
@@ -37,8 +37,10 @@ static char			*ft_u_itoa_base(uintmax_t value, int base)
 	(value == 0) ? (arr[len] = '0') : 0;
 	while (value > 0)
 	{
-		((value % base) < 10) ? (arr[len--] = (char)(value % base + '0')) :
-		(arr[len--] = (char)(value % base - 10 + 'A'));
+		if ((value % base) < 10)
+			arr[len--] = (char)(value % base + '0');
+		else
+			arr[len--] = (char)(value % base - 10 + a);
 		value /= base;
 	}
 	return (arr);
@@ -47,11 +49,13 @@ static char			*ft_u_itoa_base(uintmax_t value, int base)
 static char 	*ft_convert_to_char(uintmax_t nb, char **f)
 {
 	if (**f == 'o' || **f == 'O')
-		return (ft_u_itoa_base(ABS(nb), 8));	
+		return (ft_u_itoa_base(ABS(nb), 8, 'A'));	
 	else if (**f == 'u' || **f == 'U')
-		return (ft_u_itoa_base(ABS(nb), 10));
+		return (ft_u_itoa_base(ABS(nb), 10, 'A'));
+	else if (**f == 'x' || **f == 'X')
+		return (ft_u_itoa_base(ABS(nb), 16, 'A'));
 	else
-		return (ft_u_itoa_base(ABS(nb), 16));
+		return (ft_u_itoa_base(ABS(nb), 16, 'a'));
 }
 
 char	*ft_get_unb(t_flags *ptr, char **f, va_list arg) //"OoUuXxp"

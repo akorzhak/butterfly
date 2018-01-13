@@ -15,12 +15,17 @@
 int		main(void)
 {
 	int a;
+	int b;
+	int c;
+	int f;
+	int j;
+	char *s;
 
 	a = 0;
 	char str[] = "Hello, worldff%-+23.3hda";
 //	printf("%s\n", "1 ----------------------  12345");
-	printf("= bm %d\n", ft_printf("Hello, worldff %p", &a));
-	printf("= bp %d\n", printf("Hello, worldff %p", &a));
+	printf("= bm %d\n", ft_printf("Hello, worldff %p\n%o", &s, 12345));
+	printf("= bp %d\n", printf("Hello, worldff %p\n%o", &s, 12345));
 //	printf("\nb %+-d\n", printf(str, -12345));
 //	printf("%s\n", "2 ----------------------  12345");
 //	printf("\nbm %d\n", ft_printf(str, -12345));
