@@ -10,30 +10,48 @@
 #                                                                              #
 # **************************************************************************** #
 
+NAME = libftprintf.a
+
 C = gcc
+
 CFLAG = -Wno-format-invalid-specifier -Wno-format -Wno-macro-redefined\
 	-Wno-implicitly-unsigned-literal
-LIB = libft/libft.a
-NAME = libftprintf.a
-OBJ = ft_printf.o ft_addsize.o ft_addflags.o ft_printarg.o ft_printnb.o\
-	ft_get_unb.o ft_get_snb.o
-# macro INCLUDE, on which the .c files depend. 
-INCLUDE = libftprintf.h
+
+LIBDIR = libft
+
+#LIBOBJ = $(LIBDIR)/*.o
+LIB = $(LIBDIR)/libft.a
+
+SRCDIR = src
+
+SRC = ft_printf.c ft_addsize.c ft_addflags.c ft_printarg.c ft_printnb.c\
+	ft_get_unb.c ft_get_snb.c
+
+IDIR = includes
+
+INC = $(IDIR)/libftprintf.h
+
+OBJ = $(SRC:.c=.o)
 
 .PHONY: all clean fclean
-# a rule that applies to all files ending with the .o suffix. 
-# the .o file depends upon the .c version of the file and the INCLUDE.
-# automatic variables $<: the name of the prerequisite (a .c file)
-%.o: %.c $(INCLUDE)
-	$(C) $(CFLAG) -c $<
+
+%.o: $(SRCDIR)/%.c
+	$(C) -c $<
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar rc $(NAME) $(OBJ) $(LFLAG) $(LIB)
+	make -C $(LIBDIR)
+	cp $(LIB) $(NAME)
+	ar rc $(NAME) $(OBJ)
 	ranlib $(NAME)
+
 clean:
-	/bin/rm -f $(OBJ) *~ 
+	make clean -C $(LIBDIR)
+	/bin/rm -f $(OBJ) *~
+
 fclean: clean
+	make fclean -C $(LIBDIR)
 	/bin/rm -f $(NAME)
+
 re: fclean all
