@@ -25,7 +25,7 @@ LIB = $(LIBDIR)/libft.a
 SRCDIR = src
 
 SRC = ft_printf.c ft_addsize.c ft_addflags.c ft_printarg.c ft_printnb.c\
-	ft_get_unb.c ft_get_snb.c
+	ft_get_unb.c ft_get_snb.c ft_unicode.c
 
 IDIR = includes
 

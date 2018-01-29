@@ -22,6 +22,9 @@ int		main(void)
 	char *s;
 
 	a = 0;
+	setlocale(LC_ALL, "");
+	ft_printf("%S\n", L"Привет мир!");
+	ft_printf("%S\n", L"是兄弟");
 	char str[] = "Hello, worldff%-+23.3hda";
 //	printf("%s\n", "1 ----------------------  12345");
 	printf("= bm %d\n", ft_printf("Hello, worldff %p\n", &s));

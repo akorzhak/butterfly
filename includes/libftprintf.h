@@ -38,12 +38,15 @@ typedef struct		s_flags
 	char			z;
 }					t_flags;
 
-int		ft_printf(const char	*format, ...);
-void	ft_addsize(t_flags *ptr, char **f);
-void	ft_addflags(t_flags *ptr, char **f);
-int		ft_printarg(t_flags *ptr, char **f, va_list arg);
-int		ft_printnb(t_flags *ptr, char **f, va_list arg);
-char	*ft_get_unb(t_flags *ptr, char **f, va_list arg);
-char	*ft_get_snb(t_flags *ptr, char **f, va_list arg);
+int				ft_printf(const char	*format, ...);
+void			ft_addsize(t_flags *ptr, char **f);
+void			ft_addflags(t_flags *ptr, char **f);
+int				ft_printarg(t_flags *ptr, char **f, va_list arg);
+int				ft_printnb(t_flags *ptr, char **f, va_list arg);
+char			*ft_get_unb(t_flags *ptr, char **f, va_list arg);
+char			*ft_get_snb(t_flags *ptr, char **f, va_list arg);
+int				ft_unicode_s(t_flags *ptr, char **f, va_list arg);
+int 			ft_unicode_c(unsigned int c);
+
 
 #endif

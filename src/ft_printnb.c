@@ -77,9 +77,8 @@ static int 	ft_min(t_flags *p, char *nb)
 
 int			ft_printnb(t_flags *ptr, char **f, va_list arg)
 {
-	int 	i = 1;
+	int 	i;
 	char 	*nb;
-	char	*temp;
 
 	if (ft_strchr("OoUuXxp", **f))
 		nb = ft_get_unb(ptr, f, arg); //**f is on d for e.g.
