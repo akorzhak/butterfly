@@ -19,9 +19,10 @@ int		main(void)
 	int c;
 	int f;
 	int j;
-	char *s;
+	int *s;
 
 	a = 0;
+	s = &a;
 	setlocale(LC_ALL, "");
 	ft_printf("%S\n", L"Привет мир!");
 	ft_printf("%S\n", L"是兄弟");
@@ -30,8 +31,8 @@ int		main(void)
 	printf("= bm %d\n", ft_printf("Hello, worldff %p\n", &s));
 	printf("= bp %d\n", printf("Hello, worldff %p\n", &s));
 	printf("%s\n", "------------------------------------------------");
-	printf("= bm %d\n", ft_printf("Hello, worldff %p\n", -182323445));
-	printf("= bm %d\n", ft_printf("Hello, worldff %p\n", -182323445));
+	printf("= bm %d\n", ft_printf("Hello, worldff %x\n", -182323445));
+	printf("= bm %d\n", ft_printf("Hello, worldff %x\n", -182323445));
 //	printf("\nb %+-d\n", printf(str, -12345));
 //	printf("%s\n", "2 ----------------------  12345");
 //	printf("\nbm %d\n", ft_printf(str, -12345));

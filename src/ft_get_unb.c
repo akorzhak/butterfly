@@ -26,11 +26,12 @@ static int			size_of_arr(uintmax_t value, int base)
 }
 
 static char			*ft_u_itoa_base(uintmax_t value, int base, char a)
-{
+{	
 	char			*arr;
 	int				len;
 
 	len = size_of_arr(value, base);
+	(a == 'a') ? (len += 2) : 0;
 	if ((arr = (char*)malloc(sizeof(char) * (len + 1))) == NULL)
 		return (NULL);
 	arr[len--] = '\0';
@@ -43,6 +44,7 @@ static char			*ft_u_itoa_base(uintmax_t value, int base, char a)
 			arr[len--] = (char)(value % base - 10 + a);
 		value /= base;
 	}
+	(len == 1) ? (arr[len--] = 'x', arr[len] = '0') : 0;
 	return (arr);
 }
 
@@ -76,7 +78,8 @@ char	*ft_get_unb(t_flags *ptr, char **f, va_list arg) //"OoUuXxp"
 		nb = va_arg(arg, uintmax_t);
 	else
 	{
-		(ft_strchr("ouxp", **f)) ? (nb = va_arg(arg, unsigned int)) : 0;
+		(ft_strchr("oux", **f)) ? (nb = va_arg(arg, unsigned int)) : 0;
+		(**f == 'p') ? (nb = va_arg(arg, uintmax_t)) : 0;
 		(ft_strchr("OUX", **f)) ? (nb = va_arg(arg, unsigned long)) : 0;
 	}
 	return (ft_convert_to_char(nb, f));
