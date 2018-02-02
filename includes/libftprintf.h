@@ -46,7 +46,8 @@ int				ft_printnb(t_flags *ptr, char **f, va_list arg);
 char			*ft_get_unb(t_flags *ptr, char **f, va_list arg);
 char			*ft_get_snb(t_flags *ptr, char **f, va_list arg);
 int				ft_unicode_s(t_flags *ptr, char **f, va_list arg);
-int 			ft_unicode_c(unsigned int c);
+int				ft_unicode_c(unsigned int c);
+size_t			ft_intlen(unsigned int *str);
 
 
 #endif

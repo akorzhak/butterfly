@@ -12,7 +12,7 @@
 
 #include "../includes/libftprintf.h"
 
-int	ft_unicode_c(unsigned int c)
+int		ft_unicode_c(unsigned int c)
 {
 	unsigned int m1 = 49280;
 	unsigned int m2 = 14712960;
@@ -28,7 +28,7 @@ int	ft_unicode_c(unsigned int c)
 		u = ((m1 << 24) >> 24) | (c << 26) >> 26;
 		i += write(1, &u, 1);
 	}
-	else if (c < 6553)
+	else if (c < 65536)
 	{
 		u = (m2 >> 16) | ((c >> 12) << 28) >> 28;
 		i += write(1, &u, 1);
@@ -54,10 +54,15 @@ int	ft_unicode_c(unsigned int c)
 int				ft_unicode_s(t_flags *ptr, char **f, va_list arg)
 {
 	unsigned int	*arr;
-//	unsigned char	*res;
-	int				i;
+	char			*res;
+	int				i = 0;
 	int				a;
 
+	if (**f == 'C')
+	{
+		(*f)++;
+		return (ft_unicode_c((unsigned int)va_arg(arg, wchar_t)));
+	}
 	a = 0;
 	arr = (unsigned int *)va_arg(arg, int *);
 	if (arr == NULL)

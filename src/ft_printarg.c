@@ -24,7 +24,13 @@ int		ft_printarg(t_flags *ptr, char **f, va_list arg)
 	}
 	else if (ft_strchr("pdDioOuUxX", **f))
 		ret = ft_printnb(ptr, f, arg);
-	else if (**f == 'S')
+	else if (*(*f)++ == 'c')
+	{
+		char u = va_arg(arg, int);
+		ret = write(1, &u, 1);
+	//	(*f)++;
+	}
+	else if (**f == 'S' || **f == 'C')
 		ret = ft_unicode_s(ptr, f, arg);
 	//printf("qqqqq%d\n", ret);
 	/*else if (**f == 'c')
