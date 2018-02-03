@@ -12,73 +12,89 @@
 
 #include "../includes/libftprintf.h"
 
-int		ft_unicode_c(unsigned int c)
+static int	ft_unicode_wide(unsigned int c, char **temp)
 {
-	unsigned int m1 = 49280;
-	unsigned int m2 = 14712960;
-	unsigned int m3 = 4034953344;
-	unsigned char u;
-	int i;
+	unsigned int mask2 = 14712960;
+	unsigned int mask3 = 4034953344;
 
-	i = 0;
-	if (c < 2048)
+	if (c < 65536)
 	{
-		u = (m1 >> 8) | ((c >> 6) << 27) >> 27;
-		i += write(1, &u, 1);
-		u = ((m1 << 24) >> 24) | (c << 26) >> 26;
-		i += write(1, &u, 1);
-	}
-	else if (c < 65536)
-	{
-		u = (m2 >> 16) | ((c >> 12) << 28) >> 28;
-		i += write(1, &u, 1);
-		u = ((m2 << 16) >> 24) | ((c >> 6) << 26) >> 26;
-		i += write(1, &u, 1);
-		u = ((m2 << 24) >> 24) | (c << 26) >> 26;
-		i += write(1, &u, 1);
+		**temp = (mask2 >> 16) | ((c >> 12) << 28) >> 28;
+		(*temp)++;
+		**temp = ((mask2 << 16) >> 24) | ((c >> 6) << 26) >> 26;
+		(*temp)++;
+		**temp = ((mask2 << 24) >> 24) | (c << 26) >> 26;
+		return (3);
 	}
 	else
 	{
-		u = (m3 >> 24) | ((c >> 18) << 29) >> 29;
-		i += write(1, &u, 1);
-		u = ((m3 << 8) >> 24) | ((c >> 12) << 26) >> 26;
-		i += write(1, &u, 1);
-		u = ((m3 << 16) >> 24) | ((c >> 6) << 26) >> 26;
-		i += write(1, &u, 1);
-		u = ((m3 << 24) >> 24) | (c << 26) >> 26; 
-		i += write(1, &u, 1);
+		**temp = (mask3 >> 24) | ((c >> 18) << 29) >> 29;
+		(*temp)++;
+		**temp = ((mask3 << 8) >> 24) | ((c >> 12) << 26) >> 26;
+		(*temp)++;
+		**temp = ((mask3 << 16) >> 24) | ((c >> 6) << 26) >> 26;
+		(*temp)++;
+		**temp = ((mask3 << 24) >> 24) | (c << 26) >> 26;
+		return (4);
 	}
-	return (i);
+}
+
+static int		ft_unicode_short(unsigned int c, char **temp)
+{
+	unsigned int mask1 = 49280;
+
+	if (c < 128)
+	{
+		**temp = c;
+		return (1);
+	}
+	else
+	{
+		**temp = (mask1 >> 8) | ((c >> 6) << 27) >> 27;
+		(*temp)++;
+		**temp = ((mask1 << 24) >> 24) | (c << 26) >> 26;
+		return (2);
+	}	
+}
+
+int				ft_unicode_c(t_flags *ptr, char **f, va_list arg)
+{
+	unsigned int 	c;
+	char			*res;
+	char			*t;
+
+	c = (unsigned int)va_arg(arg, wchar_t);
+	res = ft_strnew(4);
+	t = res;
+	(c < 2048) ? (ft_unicode_short(c, &t)) : (ft_unicode_wide(c, &t));
+	(ptr->prc) ? (ptr->prc = ft_strlen(res)) : 0;
+	return (ft_prints(ptr, f, res)); //delete r!!!!!
 }
 
 int				ft_unicode_s(t_flags *ptr, char **f, va_list arg)
 {
+	unsigned int 	c;
 	unsigned int	*arr;
 	char			*res;
-	int				i = 0;
-	int				a;
+	char			*t;
 
-	if (**f == 'C' || **f == 'c')
-	{
-		(*f)++;
-		return (ft_unicode_c((unsigned int)va_arg(arg, wchar_t)));
-	}
-	a = 0;
 	arr = (unsigned int *)va_arg(arg, int *);
 	if (arr == NULL)
-	{
-		i = write(1, "(null)", 6);
-		return (i);
-	}
-//	res = (unsigned char *)malloc(sizeof(char) * ft_strlen((char *)(arr)));
+		return (ft_prints(ptr, f, "(null)"));
+	res = ft_strnew(ft_intlen(arr) * 4);
+	t = res;
 	while (*arr)
 	{
-		(*arr < 128) ? (i += write(1, arr, 1)) : 0;
-		(*arr >= 128) ? (i += ft_unicode_c(*arr)) : 0;
+		(*arr < 2048) ? (c = ft_unicode_short(*arr, &t)) : 0;
+		(*arr >= 2048) ? (c = ft_unicode_wide(*arr, &t)) : 0;
 		arr++;
+		if (ptr->prc && ft_strlen(res) > ptr->prc)
+		{
+			while (c--)
+				*t-- = '\0';
+			break;
+		}
+		t++;
 	}
-//	printf("%s\n", "aaaa");	
-//	i = write(1, res, ft_strlen((char *)res));
-	(*f)++;
-	return (i);
+	return (ft_prints(ptr, f, res));
 }

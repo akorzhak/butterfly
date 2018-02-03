@@ -21,11 +21,13 @@ int		ft_printarg(t_flags *ptr, char **f, va_list arg)
 		ft_putchar('%');
 	else if (ft_strchr("pdDioOuUxX", **f))
 		ret = ft_printnb(ptr, f, arg);
-	else if (ft_strchr("SC", **f) || (ptr->l && ft_strchr("sc", **f)))
+	else if (**f == 'C' || (ptr->l && **f == 'c'))
+		ret = ft_unicode_c(ptr, f, arg);
+	else if (**f == 'S' || (ptr->l && **f == 's'))
 		ret = ft_unicode_s(ptr, f, arg);	
 	else if (**f == 'c')
-		ret = ft_printc(ptr, f, arg);
+		ret = ft_printc(ptr, f, va_arg(arg, int));
 	else if (**f == 's')
-		ret = ft_prints(ptr, f, arg);
+		ret = ft_prints(ptr, f, va_arg(arg, char *));
 	return (ret); //the number of read bytes
 }

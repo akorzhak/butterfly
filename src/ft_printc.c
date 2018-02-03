@@ -12,12 +12,10 @@
 
 #include "../includes/libftprintf.h"
 
-int			ft_printc(t_flags *ptr, char **f, va_list arg)
+int			ft_printc(t_flags *ptr, char **f, char c)
 {
 	int ret;
-	char c;
 
-	c = va_arg(arg, int);
 	ret = write(1, &c, 1);
 	(*f)++;
 	return (ret);

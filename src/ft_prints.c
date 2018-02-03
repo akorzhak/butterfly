@@ -13,17 +13,15 @@
 #include "../includes/libftprintf.h"
 
 
-int			ft_prints(t_flags *ptr, char **f, va_list arg)
+int			ft_prints(t_flags *ptr, char **f, char *s)
 {
 	int i;
-	char *s;
 
-	s = va_arg(arg, char *);
 	if (ptr->min)
 		i = ft_min(ptr, s);
-	else if (ptr->zero || ptr->plus || ptr->space)
+	else if (ptr->zero || ptr->space)
 		i = ft_zero_plus_space(ptr, s);
-	else if (ptr->width) //&& ptr->width > ptr->prc)
+	else if (ptr->width)
 	{
 		if (ptr->prc && ptr->prc < ft_strlen(s))
 		{
