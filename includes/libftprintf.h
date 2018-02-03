@@ -48,6 +48,10 @@ char			*ft_get_snb(t_flags *ptr, char **f, va_list arg);
 int				ft_unicode_s(t_flags *ptr, char **f, va_list arg);
 int				ft_unicode_c(unsigned int c);
 size_t			ft_intlen(unsigned int *str);
-
+int				ft_printc(t_flags *ptr, char **f, va_list arg);
+int				ft_prints(t_flags *ptr, char **f, va_list arg);
+int 			ft_min(t_flags *p, char *nb);
+int 			ft_put(char c, int nb);
+int 			ft_zero_plus_space(t_flags *p, char *nb);
 
 #endif

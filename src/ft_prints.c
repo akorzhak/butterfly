@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printarg.c                                      :+:      :+:    :+:   */
+/*   ft_prints.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akorzhak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,20 +12,34 @@
 
 #include "../includes/libftprintf.h"
 
-int		ft_printarg(t_flags *ptr, char **f, va_list arg)
-{
-	int ret;
 
-	ret = 1;
-	if (**f == '%')
-		ft_putchar('%');
-	else if (ft_strchr("pdDioOuUxX", **f))
-		ret = ft_printnb(ptr, f, arg);
-	else if (ft_strchr("SC", **f) || (ptr->l && ft_strchr("sc", **f)))
-		ret = ft_unicode_s(ptr, f, arg);	
-	else if (**f == 'c')
-		ret = ft_printc(ptr, f, arg);
-	else if (**f == 's')
-		ret = ft_prints(ptr, f, arg);
-	return (ret); //the number of read bytes
+int			ft_prints(t_flags *ptr, char **f, va_list arg)
+{
+	int i;
+	char *s;
+
+	s = va_arg(arg, char *);
+	if (ptr->min)
+		i = ft_min(ptr, s);
+	else if (ptr->zero || ptr->plus || ptr->space)
+		i = ft_zero_plus_space(ptr, s);
+	else if (ptr->width) //&& ptr->width > ptr->prc)
+	{
+		if (ptr->prc && ptr->prc < ft_strlen(s))
+		{
+			i = ft_put(' ', ptr->width - ptr->prc);
+			i += write(1, s, ptr->prc);
+		}
+		else
+		{
+			i = ft_put(' ', ptr->width - ft_strlen(s));
+			i += write(1, s, ft_strlen(s));
+		}
+	}
+	else if (ptr->prc)
+		i = write(1, s, ptr->prc);
+	else
+		i = write(1, s, ft_strlen(s));
+	(*f)++;
+	return (i);
 }

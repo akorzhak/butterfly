@@ -58,7 +58,7 @@ int				ft_unicode_s(t_flags *ptr, char **f, va_list arg)
 	int				i = 0;
 	int				a;
 
-	if (**f == 'C')
+	if (**f == 'C' || **f == 'c')
 	{
 		(*f)++;
 		return (ft_unicode_c((unsigned int)va_arg(arg, wchar_t)));

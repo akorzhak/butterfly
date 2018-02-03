@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printarg.c                                      :+:      :+:    :+:   */
+/*   ft_printc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akorzhak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,20 +12,13 @@
 
 #include "../includes/libftprintf.h"
 
-int		ft_printarg(t_flags *ptr, char **f, va_list arg)
+int			ft_printc(t_flags *ptr, char **f, va_list arg)
 {
 	int ret;
+	char c;
 
-	ret = 1;
-	if (**f == '%')
-		ft_putchar('%');
-	else if (ft_strchr("pdDioOuUxX", **f))
-		ret = ft_printnb(ptr, f, arg);
-	else if (ft_strchr("SC", **f) || (ptr->l && ft_strchr("sc", **f)))
-		ret = ft_unicode_s(ptr, f, arg);	
-	else if (**f == 'c')
-		ret = ft_printc(ptr, f, arg);
-	else if (**f == 's')
-		ret = ft_prints(ptr, f, arg);
-	return (ret); //the number of read bytes
+	c = va_arg(arg, int);
+	ret = write(1, &c, 1);
+	(*f)++;
+	return (ret);
 }
