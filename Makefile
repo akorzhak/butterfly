@@ -26,7 +26,7 @@ SRCDIR = src
 
 SRC = ft_printf.c ft_addsize.c ft_addflags.c ft_printarg.c ft_printnb.c\
 	ft_get_unb.c ft_get_snb.c ft_unicode.c ft_intlen.c ft_printc.c\
-	ft_prints.c ft_modificate.c
+	ft_prints.c ft_modificate.c ft_print_percent.c
 
 IDIR = includes
 

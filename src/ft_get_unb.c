@@ -25,49 +25,55 @@ static int			size_of_arr(uintmax_t value, int base)
 	return (len);
 }
 
-static char			*ft_u_itoa_base(uintmax_t value, int base, char a)
+static char			*ft_u_itoa_base(t_flags *p, uintmax_t v, int base, char **f)
 {	
 	char			*arr;
 	int				len;
+	char 			a;
 
-	len = size_of_arr(value, base);
-	(a == 'a') ? (len += 2) : 0;
-	if ((arr = (char*)malloc(sizeof(char) * (len + 1))) == NULL)
-		return (NULL);
-	arr[len--] = '\0';
-	(value == 0) ? (arr[len] = '0') : 0;
-	while (value > 0)
-	{
-		if ((value % base) < 10)
-			arr[len--] = (char)(value % base + '0');
+	if (**f == 'x' || **f == 'p') 
+		a = 'a';
+	else
+		a = 'A';
+	len = size_of_arr(v, base);
+//	(**f == 'p' || (p->sharp && ft_strchr("xX", **f))) ? (len += 2) : 0;
+	arr = ft_strnew(len--);
+	// (**f == 'p' || (p->sharp && **f == 'x')) ? (arr[0] = '0', arr[1] = 'x') : 0;
+	// (p->sharp && **f == 'X') ? (arr[0] = '0', arr[1] = 'X') : 0;	
+	while (v > 0)
+	{			
+		if ((v % base) < 10)
+			arr[len--] = (char)(v % base + '0');
 		else
-			arr[len--] = (char)(value % base - 10 + a);
-		value /= base;
+			arr[len--] = (char)(v % base - 10 + a);
+		v /= base;
 	}
-	(len == 1) ? (arr[len--] = 'x', arr[len] = '0') : 0;
 	return (arr);
 }
 
-static char 	*ft_convert_to_char(uintmax_t nb, char **f)
+static char 	*ft_convert_to_char(t_flags *ptr, uintmax_t nb, char **f)
 {
 	if (**f == 'o' || **f == 'O')
-		return (ft_u_itoa_base(ABS(nb), 8, 'A'));	
+		return (ft_u_itoa_base(ptr, ABS(nb), 8, f));	
 	else if (**f == 'u' || **f == 'U')
-		return (ft_u_itoa_base(ABS(nb), 10, 'A'));
-	else if (**f == 'x' || **f == 'X')
-		return (ft_u_itoa_base(ABS(nb), 16, 'A'));
+		return (ft_u_itoa_base(ptr, ABS(nb), 10, f));
+	else if (**f == 'X')
+		return (ft_u_itoa_base(ptr, ABS(nb), 16, f));
+	else if (**f == 'x')
+		return (ft_u_itoa_base(ptr, ABS(nb), 16, f));
 	else
-		return (ft_u_itoa_base(ABS(nb), 16, 'a'));
+		return (ft_u_itoa_base(ptr, ABS(nb), 16, f));
 }
 
 char	*ft_get_unb(t_flags *ptr, char **f, va_list arg) //"OoUuXxp"
 {
-	uintmax_t nb; //The C intmax_t and uintmax_t types can represent any value 
-	//representable by any other integer types of the same signedness.
+	uintmax_t 	nb;
+	char 		*n;
+
 	if (ptr->h)
-		nb = (unsigned short)(va_arg(arg, int));
+		nb = (unsigned short)(va_arg(arg, unsigned int));
 	else if (ptr->hh)
-		nb = (unsigned char)(va_arg(arg, int));
+		nb = (unsigned char)(va_arg(arg, unsigned int));
 	else if (ptr->l)
 		nb = va_arg(arg, unsigned long);
 	else if (ptr->ll)
@@ -80,7 +86,10 @@ char	*ft_get_unb(t_flags *ptr, char **f, va_list arg) //"OoUuXxp"
 	{
 		(ft_strchr("oux", **f)) ? (nb = va_arg(arg, unsigned int)) : 0;
 		(**f == 'p') ? (nb = va_arg(arg, uintmax_t)) : 0;
-		(ft_strchr("OUX", **f)) ? (nb = va_arg(arg, unsigned long)) : 0;
+		(ft_strchr("OUX", **f)) ? (nb = va_arg(arg, unsigned int)) : 0;
 	}
-	return (ft_convert_to_char(nb, f));
+	(!nb) ? (n = ft_strnew(1)) : 0;
+	(!nb) ? (*n = '0') : 0;
+	(nb) ? (n = ft_convert_to_char(ptr, nb, f)) : 0;
+	return (n);
 }

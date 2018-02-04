@@ -15,10 +15,11 @@
 int		ft_printarg(t_flags *ptr, char **f, va_list arg)
 {
 	int ret;
+	char *str;
 
 	ret = 1;
 	if (**f == '%')
-		ft_putchar('%');
+		ret = ft_print_percent(ptr, f);
 	else if (ft_strchr("pdDioOuUxX", **f))
 		ret = ft_printnb(ptr, f, arg);
 	else if (**f == 'C' || (ptr->l && **f == 'c'))

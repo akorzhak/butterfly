@@ -47,7 +47,7 @@ int		ft_readparams(char **f, va_list arg) //everything after %, excluding %
 	if (ft_strchr("-+#0 ", **f))
 		ft_addflags(ptr, f);
 	if ((**f >= '0' && **f <= '9') || **f == '*')
-		ptr->width = ft_getint(f, arg, ptr->width);
+		ptr->wd = ft_getint(f, arg, ptr->wd);
 	if ((**f == '.') && ((*f)++))
 		ptr->prc = ft_getint(f, arg, ptr->prc);
 	if (ft_strchr("hljztL", **f))

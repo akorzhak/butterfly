@@ -53,7 +53,8 @@ static char			*ft_s_itoa_base(intmax_t value, int base)
 
 char	*ft_get_snb(t_flags *ptr, char **f, va_list arg) //dDi
 {
-	intmax_t nb; 
+	intmax_t 	nb;
+	char 		*n; 
 
 	if (ptr->h)
 		nb = (short)(va_arg(arg, int));
@@ -72,5 +73,8 @@ char	*ft_get_snb(t_flags *ptr, char **f, va_list arg) //dDi
 		(**f == 'd' || **f == 'i') ? (nb = va_arg(arg, int)) : 0;
 		(**f == 'D') ? (nb = va_arg(arg, long)) : 0;
 	}
-	return (ft_s_itoa_base(nb, 10));
+	(!nb) ? (n = ft_strnew(1)) : 0;
+	(!nb) ? (*n = '0') : 0;
+	(nb) ? (n = ft_s_itoa_base(nb, 10)) : 0;
+	return (n);
 }

@@ -14,25 +14,39 @@
 
 int		main(void)
 {
-	int a;
-	int b;
-	int c;
-	int f;
-	int j;
-	int *s;
+	int i;
+	unsigned long l;
+	char *str;
 
-	a = 0;
-	s = &a;
 	setlocale(LC_ALL, "");
 
-  	printf("= bm %d\n", ft_printf("%6.1C\n", L'是'));
-// // 	printf("%s\n", "-------------------------");
-// // 	
-  	printf("= bp %d\n", printf("%6.1C\n", L'是'));
-  	printf("%s\n", "-------------------------");
-	printf("= bm %d\n", ft_printf("%23S\n", L"是是是вет мир!"));	
- 	printf("= bp %d\n", printf("%23S\n", L"是是是вет мир!"));
-//  	printf("%s\n", "-------------------------");
+	printf("%s\n", "------------------------------------------------");
+	printf("= bm %d\n", ft_printf("%#8x", 42));
+	printf("= bp %d\n", printf("%#8x", 42));
+	// printf("%s\n", "------------------------------------------------");
+	// printf("= bm %d\n", ft_printf("%p", &l));
+	// printf("= bp %d\n", printf("%p", &l));
+	// printf("%s\n", "------------------------------------------------");
+	// printf("= bm %d\n", ft_printf("%p", &str));
+	// printf("= bp %d\n", printf("%p", &str));
+	// printf("%s\n", "------------------------------------------------");
+	// printf("= bm %d\n", ft_printf("%p", &strlen));
+	// printf("= bp %d\n", printf("%p", &strlen));
+	// printf("%s\n", "------------------------------------------------");
+	// printf("= bm %d\n", ft_printf("%p", 0));
+	// printf("= bp %d\n", printf("%p", 0));
+	// printf("%s\n", "------------------------------------------------");
+	// printf("= bm %d\n", ft_printf("{%s}", ""));
+	// printf("= bp %d\n", printf("{%s}", ""));
+
+//   	printf("= bm %d\n", ft_printf("%6.1C\n", L'是'));
+// // // 	printf("%s\n", "-------------------------");
+// // // 	
+//   	printf("= bp %d\n", printf("%6.1C\n", L'是'));
+//   	printf("%s\n", "-------------------------");
+// 	printf("= bm %d\n", ft_printf("%23S\n", L"是是是вет мир!"));	
+//  	printf("= bp %d\n", printf("%23S\n", L"是是是вет мир!"));
+// //  	printf("%s\n", "-------------------------");
 //  	printf("= bm %d\n", ft_printf("%c\n", 'a'));
 //  	printf("= bp %d\n", printf("%c\n", 'a'));
 //   	printf("%s\n", "-------------------------");
@@ -47,33 +61,6 @@ int		main(void)
 //  	printf("%s\n", "-------------------------");
 // 	printf("= bm %d\n", ft_printf("%ls\n", L"Привет"));
 //  	printf("= bp %d\n", printf("%ls\n", L"Привет"));
-	printf("%s\n", "-------------------------");
-  	printf("= bm %d\n", ft_printf("%+10.2s\n", "Alyona"));
-  	printf("= bp %d\n", printf("%+10.2s\n", "Alyona"));	
-  	printf("%s\n", "-------------------------");
-  	printf("= bm %d\n", ft_printf("%12.7s\n", "hello"));
-  	printf("= bp %d\n", printf("%12.7s\n", "hello"));
-  	printf("%s\n", "-------------------------");
-  	printf("= bm %d\n", ft_printf("%-0.10d\n", 12345));
-  	printf("= bp %d\n", printf("%-0.10d\n", 12345));
-  	printf("%s\n", "-------------------------");
-  	printf("= bm %d\n", ft_printf("%12.7d\n", 12345));
-  	printf("= bp %d\n", printf("%12.7d\n", 12345));
-  	printf("%s\n", "-------------------------");
-  	printf("= bm %d\n", ft_printf("%12.1d\n", 12345));
-  	printf("= bp %d\n", printf("%12.1d\n", 12345));
-  	printf("%s\n", "-------------------------");
-  	printf("= bm %d\n", ft_printf("%012s\n", "hello"));
-  	printf("= bp %d\n", printf("%012s\n", "hello"));	
-  	printf("%s\n", "-------------------------");
-  	printf("= bm %d\n", ft_printf("%012d\n", 12345));
-  	printf("= bp %d\n", printf("%012d\n", 12345));	
-  	printf("%s\n", "-------------------------");
-  	printf("= bm %d\n", ft_printf("%+012d\n", 12345));
-  	printf("= bp %d\n", printf("%+012d\n", 12345));	
-  	printf("%s\n", "-------------------------");
-  	printf("= bm %d\n", ft_printf("%+012.10d\n", 12345));
-  	printf("= bp %d\n", printf("%+012.10d\n", 12345));	
 
 // 	printf("= bp %d\n", printf("%S\n", L"Привет мир!"));
 // 	
