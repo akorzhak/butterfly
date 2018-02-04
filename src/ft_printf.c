@@ -49,7 +49,10 @@ int		ft_readparams(char **f, va_list arg) //everything after %, excluding %
 	if ((**f >= '0' && **f <= '9') || **f == '*')
 		ptr->wd = ft_getint(f, arg, ptr->wd);
 	if ((**f == '.') && ((*f)++))
+	{
+		ptr->dot = 1;
 		ptr->prc = ft_getint(f, arg, ptr->prc);
+	}
 	if (ft_strchr("hljztL", **f))
 		ft_addsize(ptr, f);
 	return (ft_printarg(ptr, f, arg));

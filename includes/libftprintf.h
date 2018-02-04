@@ -29,6 +29,7 @@ typedef struct		s_flags
 	char			sharp;
 	char			zero;
 	int				wd;	//intmax_t??
+	char			dot;
 	int				prc;
 	char			hh;
 	char			ll;	
@@ -37,6 +38,12 @@ typedef struct		s_flags
 	char			j;
 	char			z;
 }					t_flags;
+
+typedef struct		s_cnt
+{
+	int				i;	//intmax_t??
+	int				a;
+}					t_cnt;
 
 int				ft_printf(const char	*format, ...);
 void			ft_addsize(t_flags *ptr, char **f);
@@ -53,6 +60,6 @@ int				ft_printc(t_flags *ptr, char **f, char c);
 int				ft_prints(t_flags *ptr, char **f, char *s);
 int 			ft_min(t_flags *p, char *nb, char **f, int a);
 int 			ft_put(char c, int nb);
-int 			ft_zero_plus_space(t_flags *p, char *nb, int a);
+int 			ft_zero_plus_space(t_flags *p, char *nb, t_cnt *c);
 
 #endif

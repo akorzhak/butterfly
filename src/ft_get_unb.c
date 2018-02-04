@@ -36,10 +36,7 @@ static char			*ft_u_itoa_base(t_flags *p, uintmax_t v, int base, char **f)
 	else
 		a = 'A';
 	len = size_of_arr(v, base);
-//	(**f == 'p' || (p->sharp && ft_strchr("xX", **f))) ? (len += 2) : 0;
-	arr = ft_strnew(len--);
-	// (**f == 'p' || (p->sharp && **f == 'x')) ? (arr[0] = '0', arr[1] = 'x') : 0;
-	// (p->sharp && **f == 'X') ? (arr[0] = '0', arr[1] = 'X') : 0;	
+	arr = ft_strnew(len--);	
 	while (v > 0)
 	{			
 		if ((v % base) < 10)

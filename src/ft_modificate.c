@@ -22,34 +22,37 @@ int 	ft_put(char c, int nb)
 	return (i);
 }
 
-int 	ft_zero_plus_space(t_flags *p, char *nb, int a)
+int 	ft_zero_plus_space(t_flags *p, char *nb, t_cnt *c)
 {
-	int 	i;
 	char	*n;
 	int 	len;
 
-	i = 0;
 	n = nb;
+//	(p->sharp) ? (a = 1) : 0; //?????
 	(n[0] == '-') ? (n++) : 0;
 	len = ft_strlen(n);
 	if (p->wd && !p->prc)
 	{
-		(p->plus && nb[0] != '-') ? (ft_putchar('+'), i++) : 0;
-		i += ft_put('0', p->wd - len - p->plus - a);
+		(p->plus && nb[0] != '-') ? (ft_putchar('+'), c->i++) : 0;
+		c->i += ft_put('0', p->wd - len - p->plus - c->a);
+		(p->sharp && !p->zero) ? (c->i += ft_put('0', 1)) : 0;
 	}
 	else if (p->wd > (p->prc + p->plus))
 	{
-		if (p->prc >= len)
-			i += ft_put(' ', p->wd - p->prc - p->plus);
+		if (p->prc > len) // >=
+			c->i += ft_put(' ', p->wd - p->prc - p->plus);
 		else
-			i = ft_put(' ', p->wd - len - p->plus);
+		{
+			c->i += ft_put(' ', p->wd - len - p->plus - c->a);
+			(p->sharp) ? (c->i += ft_put('0', 1)) : 0;			
+		}
 	}
-	(p->space && !p->plus && nb[0] != '-') ? (ft_putchar(' '), i++) : 0;
-	(nb[0] == '-') ? (ft_putchar('-'), i++) : 0;
-	(p->prc && p->plus && nb[0] != '-') ? (ft_putchar('+'), i++) : 0;
-	(p->prc >= len) ? (i += ft_put('0', p->prc - len)) : 0;
-	i += write(1, n, len);
-	return (i);
+	(p->space && !p->plus && nb[0] != '-') ? (ft_putchar(' '), c->i++) : 0;
+	(nb[0] == '-') ? (ft_putchar('-'), c->i++) : 0;
+	(p->plus && nb[0] != '-') ? (ft_putchar('+'), c->i++) : 0;
+	(p->prc >= len) ? (c->i += ft_put('0', p->prc - len)) : 0;
+	c->i += write(1, n, len);
+	return (c->i);
 }
 
 int 	ft_min(t_flags *p, char *nb, char **f, int a)
@@ -70,7 +73,12 @@ int 	ft_min(t_flags *p, char *nb, char **f, int a)
 		if (!p->prc || p->prc <= len)
 		{
 			if (**f == 's')
-				i += write(1, n, p->prc) + ft_put(' ', p->wd - p->prc);
+			{
+				if (p->prc)
+					i += write(1, n, p->prc) + ft_put(' ', p->wd - p->prc);
+				else
+					i += write(1, n, len) + ft_put(' ', p->wd - len);
+			}
 			else
 				i += write(1, n, len) + ft_put(' ', p->wd - len - i - a);
 		}

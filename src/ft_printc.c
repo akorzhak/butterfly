@@ -18,5 +18,6 @@ int			ft_printc(t_flags *ptr, char **f, char c)
 
 	str = ft_strnew(1);
 	*str = c;
+	ptr->space = 0;
 	return (ft_prints(ptr, f, str));
 }
