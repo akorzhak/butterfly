@@ -38,13 +38,13 @@ int 	ft_zero_plus_space(t_flags *p, char *nb, t_cnt *c)
 		(!p->plus) ? c->i += ft_put('0', p->wd - len - c->a) : 0;
 		(p->sharp && !p->zero) ? (c->i += ft_put('0', 1)) : 0;
 	}
-	else if (p->wd > (p->prc + p->plus + p->space))
+	else if (p->wd > p->prc + (p->plus || (nb[0] == '-' || p->space)))
 	{
 		if (p->prc > len)
-			c->i += ft_put(' ', p->wd - p->prc - p->plus - p->space);
+			c->i += ft_put(' ', p->wd - p->prc - (nb[0] == '-' || p->plus || p->space));
 		else
 		{
-			c->i += ft_put(' ', p->wd - len - p->plus - c->a);
+			c->i += ft_put(' ', p->wd - (nb[0] == '-' || p->plus || p->space));
 			(p->sharp && *n != '0') ? (c->i += ft_put('0', 1)) : 0;			
 		}
 	}

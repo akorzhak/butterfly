@@ -16,13 +16,13 @@ int		main(void)
 {
 	int i;
 	unsigned long l;
-	char *str;
+	char *str = "hi";
 
 	setlocale(LC_ALL, "");
 
 	printf("%s\n", "------------------------------------------------");
-	printf("= bm %d\n", ft_printf("%03.2d", -1));
-	printf("= bp %d\n", printf("%03.2d", -1));
+	printf("= bm %d\n", ft_printf("%hU", 4294967296));
+	printf("= bp %d\n", printf("%hU", 4294967296));
 	// printf("%s\n", "------------------------------------------------");
 	// printf("= bm %d\n", ft_printf("%p", &l));
 	// printf("= bp %d\n", printf("%p", &l));

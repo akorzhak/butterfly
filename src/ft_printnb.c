@@ -14,25 +14,30 @@
 
 void 	ft_printnb_3(t_flags *p, char **f, char **nb, t_cnt *c)
 {
+	char 	*n;
 	size_t len;
 
-	len = ft_strlen(*nb);
+	n = *nb;
+	(n[0] == '-') ? (n++) : 0;
+	len = ft_strlen(n);
 	if (len >= p->prc)
 	{
-		p->wd > len ? c->i = ft_put(' ', p->wd - len - c->a) : 0;
+		p->wd > len ? c->i = ft_put(' ', p->wd - len - c->a - (*nb[0] == '-')) : 0;
 		if (**f == 'p' || (p->sharp && **f == 'x' && **nb != '0')) 
 			c->i += write(1, "0x", 2);
 		(p->sharp && **f == 'X' && **nb != '0') ? (c->i += write(1, "0X", 2)) : 0;
+		(*nb[0] == '-') ? (c->i += write(1, "-", 1)) : 0;
 	}
 	else if (len < p->prc)
 	{
 		if (p->wd > (p->prc + c->a))
-			c->i += ft_put(' ', p->wd - p->prc - c->a); //!!!!!
+			c->i += ft_put(' ', p->wd - p->prc - c->a);
+		(*nb[0] == '-') ? (c->i += write(1, "-", 1)) : 0;
 		c->i += ft_put('0', p->prc - len);
 	}
 	if (p->sharp && (**f == 'o' || **f == 'O'))
 		c->i += write(1, "0", 1);
-	c->i += write(1, *nb, len);
+	c->i += write(1, n, len);
 }
 
 int 	ft_printnb_2(t_flags *p, char **f, char **nb, t_cnt *c)

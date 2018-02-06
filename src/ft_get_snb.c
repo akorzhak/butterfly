@@ -55,12 +55,12 @@ char	*ft_get_snb(t_flags *ptr, char **f, va_list arg) //dDi
 	intmax_t 	nb;
 	char 		*n; 
 
-	if (ptr->h)
+	if (**f == 'D' || ptr->l)
+		nb = va_arg(arg, long);
+	else if (ptr->h)
 		nb = (short)(va_arg(arg, int));
 	else if (ptr->hh)
 		nb = (char)(va_arg(arg, int));
-	else if (ptr->l)
-		nb = va_arg(arg, long);
 	else if (ptr->ll)
 		nb = va_arg(arg, long long);
 	else if (ptr->z)
@@ -68,10 +68,7 @@ char	*ft_get_snb(t_flags *ptr, char **f, va_list arg) //dDi
 	else if (ptr->j)
 		nb = va_arg(arg, intmax_t);
 	else
-	{
 		(**f == 'd' || **f == 'i') ? (nb = va_arg(arg, int)) : 0;
-		(**f == 'D') ? (nb = va_arg(arg, long)) : 0;
-	}
 	(!nb) ? (n = ft_strnew(1)) : 0;
 	(!nb) ? (*n = '0') : 0;
 	(nb) ? (n = ft_s_itoa_base(nb, 10)) : 0;

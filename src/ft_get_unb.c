@@ -67,8 +67,10 @@ char	*ft_get_unb(t_flags *ptr, char **f, va_list arg) //"OoUuXxp"
 	uintmax_t 	nb;
 	char 		*n;
 
-	if (ptr->h)
-		nb = (unsigned short)(va_arg(arg, unsigned int));
+	if (ft_strchr("OU", **f))
+		nb = va_arg(arg, unsigned long);
+	else if (ptr->h)
+		nb = (unsigned short)(va_arg(arg, uintmax_t));
 	else if (ptr->hh)
 		nb = (unsigned char)(va_arg(arg, unsigned int));
 	else if (ptr->l)
@@ -81,12 +83,13 @@ char	*ft_get_unb(t_flags *ptr, char **f, va_list arg) //"OoUuXxp"
 		nb = va_arg(arg, uintmax_t);
 	else
 	{
-		(ft_strchr("oux", **f)) ? (nb = va_arg(arg, unsigned int)) : 0;
-		(**f == 'p') ? (nb = va_arg(arg, uintmax_t)) : 0;
-		(ft_strchr("OUX", **f)) ? (nb = va_arg(arg, unsigned int)) : 0;
+		(ft_strchr("ouxX", **f)) ? (nb = va_arg(arg, unsigned int)) : 0;
+		(**f == 'p') ? (nb = va_arg(arg, uintmax_t)) : 0;	
 	}
 	(!nb) ? (n = ft_strnew(1)) : 0;
 	(!nb) ? (*n = '0') : 0;
+	ptr->space = 0;
+	ptr->plus = 0;
 	(nb) ? (n = ft_convert_to_char(ptr, nb, f)) : 0;
 	return (n);
 }
