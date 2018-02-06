@@ -12,15 +12,14 @@
 
 #include "../includes/libftprintf.h"
 
-static int			size_of_arr(intmax_t value, int base)
+static int			size_of_arr(uintmax_t val, int base)
 {
 	int				len;
 
 	len = 1;
-	(value < 0) ? (value = -value) : 0;
-	while (value >= base)
+	while (val >= base)
 	{
-		value /= base;
+		val /= base;
 		len++;
 	}
 	return (len);
@@ -30,24 +29,24 @@ static char			*ft_s_itoa_base(intmax_t value, int base)
 {
 	char			*arr;
 	int				len;
-	intmax_t		val;
+	uintmax_t		val;
 
-	val = value;
-	len = size_of_arr(value, base);
+	len = 0;
 	(value < 0) ? (len++) : 0;
-	(value < 0) ? (value = -value) : 0;
-
-	if ((arr = (char*)malloc(sizeof(char) * (len + 1))) == NULL)
+	(value < 0) ? (val = (uintmax_t)value * -1) : 0;
+	(value >= 0) ? (val = (uintmax_t)value) : 0;
+	len += size_of_arr(val, base);
+	if (!(arr = ft_strnew(len)))
 		return (NULL);
 	arr[len--] = '\0';
-	(value == 0) ? (arr[len] = '0') : 0;
-	while (value > 0)
+	(val == 0) ? (arr[len] = '0') : 0;
+	while (val > 0)
 	{
-		((value % base) < 10) ? (arr[len--] = (char)(value % base + '0')) :
-		(arr[len--] = (char)(value % base - 10 + 'A'));
-		value /= base;
+		((val % base) < 10) ? (arr[len--] = (char)(val % base + '0')) :
+		(arr[len--] = (char)(val % base - 10 + 'A'));
+		val /= base;
 	}
-	(!len && val != 0) ? (arr[len] = '-') : 0;
+	(!len && value != 0) ? (arr[len] = '-') : 0;
 	return (arr);
 }
 

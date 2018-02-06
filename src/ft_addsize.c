@@ -11,26 +11,31 @@
 /* ************************************************************************** */
 
 #include "../includes/libftprintf.h"
-//#include "libftprintf.h"
 
 void		ft_addsize(t_flags *ptr, char **f)
 {
 	while (**f)
 	{
-		if (**f == 'h' && **(f + 1) == 'h') //*(*f++ + 1)
+		if (**f == 'h')
 		{
-			ptr->hh = 1;
-			(*f)++;
-		}
-		else if (**f == 'h')
-			ptr->h = 1;
-		else if (**f == 'l' && **(f + 1) == 'l')
-		{
-			ptr->ll = 1;
-			(*f)++;
+			if (ft_strnequ(*f, "hh", 2))
+			{
+				ptr->hh = 1;
+				(*f)++;
+			}
+			else
+				ptr->h = 1;
 		}
 		else if (**f == 'l')
-			ptr->l = 1;
+		{
+			if (ft_strnequ(*f, "ll", 2))
+			{
+				ptr->ll = 1;
+				(*f)++;
+			}
+			else
+				ptr->l = 1;
+		}
 		else if (**f == 'j')
 			ptr->j = 1;
 		else if (**f == 'z')

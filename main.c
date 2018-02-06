@@ -21,8 +21,8 @@ int		main(void)
 	setlocale(LC_ALL, "");
 
 	printf("%s\n", "------------------------------------------------");
-	printf("= bm %d\n", ft_printf("%+d", 42));
-	printf("= bp %d\n", printf("%+d", 42));
+	printf("= bm %d\n", ft_printf("%03.2d", -1));
+	printf("= bp %d\n", printf("%03.2d", -1));
 	// printf("%s\n", "------------------------------------------------");
 	// printf("= bm %d\n", ft_printf("%p", &l));
 	// printf("= bp %d\n", printf("%p", &l));

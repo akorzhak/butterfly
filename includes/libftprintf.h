@@ -43,6 +43,7 @@ typedef struct		s_cnt
 {
 	int				i;	//intmax_t??
 	int				a;
+	int 			p;
 }					t_cnt;
 
 int				ft_printf(const char	*format, ...);

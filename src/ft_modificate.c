@@ -28,28 +28,29 @@ int 	ft_zero_plus_space(t_flags *p, char *nb, t_cnt *c)
 	int 	len;
 
 	n = nb;
-//	(p->sharp) ? (a = 1) : 0; //?????
 	(n[0] == '-') ? (n++) : 0;
 	len = ft_strlen(n);
 	if (p->wd && !p->prc)
 	{
-		(p->plus && nb[0] != '-') ? (ft_putchar('+'), c->i++) : 0;
-		c->i += ft_put('0', p->wd - len - p->plus - c->a);
+		(p->plus && nb[0] != '-') ? (ft_putchar('+'), c->i++, c->p++) : 0;
+		(nb[0] == '-' && p->zero) ? (c->i += write(1, "-", 1), c->a++) : 0;
+		(p->plus) ? c->i += ft_put('0', p->wd - len - p->plus) : 0;
+		(!p->plus) ? c->i += ft_put('0', p->wd - len - c->a) : 0;
 		(p->sharp && !p->zero) ? (c->i += ft_put('0', 1)) : 0;
 	}
-	else if (p->wd > (p->prc + p->plus))
+	else if (p->wd > (p->prc + p->plus + p->space))
 	{
-		if (p->prc > len) // >=
-			c->i += ft_put(' ', p->wd - p->prc - p->plus);
+		if (p->prc > len)
+			c->i += ft_put(' ', p->wd - p->prc - p->plus - p->space);
 		else
 		{
 			c->i += ft_put(' ', p->wd - len - p->plus - c->a);
-			(p->sharp) ? (c->i += ft_put('0', 1)) : 0;			
+			(p->sharp && *n != '0') ? (c->i += ft_put('0', 1)) : 0;			
 		}
 	}
 	(p->space && !p->plus && nb[0] != '-') ? (ft_putchar(' '), c->i++) : 0;
-	(nb[0] == '-') ? (ft_putchar('-'), c->i++) : 0;
-	(p->plus && nb[0] != '-') ? (ft_putchar('+'), c->i++) : 0;
+	(nb[0] == '-' && !c->a) ? (ft_putchar('-'), c->i++) : 0;
+	(p->plus && !c->p && nb[0] != '-') ? (ft_putchar('+'), c->i++) : 0;
 	(p->prc >= len) ? (c->i += ft_put('0', p->prc - len)) : 0;
 	c->i += write(1, n, len);
 	return (c->i);
@@ -66,7 +67,7 @@ int 	ft_min(t_flags *p, char *nb, char **f, int a)
 	n = nb;
 	(p->plus && nb[0] != '-') ? (ft_putchar('+'), i++) : 0;
 	(p->space && !p->plus) ? (ft_putchar(' '), i++) : 0;
-	(nb[0] == '-') ? (ft_putchar('-'), n++) : 0;
+	(nb[0] == '-') ? (ft_putchar('-'), i++, n++) : 0;
 	len = ft_strlen(n);
 	if (p->wd && p->wd > len && p->wd > p->prc)
 	{

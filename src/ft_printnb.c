@@ -20,9 +20,9 @@ void 	ft_printnb_3(t_flags *p, char **f, char **nb, t_cnt *c)
 	if (len >= p->prc)
 	{
 		p->wd > len ? c->i = ft_put(' ', p->wd - len - c->a) : 0;
-		if (**f == 'p' || (p->sharp && **f == 'x')) 
+		if (**f == 'p' || (p->sharp && **f == 'x' && **nb != '0')) 
 			c->i += write(1, "0x", 2);
-		(p->sharp && **f == 'X') ? (c->i += write(1, "0X", 2)) : 0;
+		(p->sharp && **f == 'X' && **nb != '0') ? (c->i += write(1, "0X", 2)) : 0;
 	}
 	else if (len < p->prc)
 	{
@@ -57,16 +57,27 @@ int			ft_printnb(t_flags *p, char **f, va_list arg)
 	char 	*nb;
 	int 	i;
 
+	i = 0;
 	c = (t_cnt *)ft_memalloc(sizeof(t_cnt));
 	if (ft_strchr("OoUuXxp", **f))
 		nb = ft_get_unb(p, f, arg); //**f is on d for e.g.
 	else
 		nb = ft_get_snb(p, f, arg); //maybe to pass the address of nb into func!
-	if (*nb == '0' && (*f)++)
-		return (write(1, "0", 1));
+	if (p->dot && !p->prc && *nb == '0')
+	{
+		if (**f == 'o' && p->sharp)
+		{
+			(p->wd) ? (i = ft_put(' ', p->wd - 1) + write(1, "0", 1)) : 0;
+			(!p->wd) ? (i = write(1, "0", 1)) : 0;
+		}
+		else
+			(p->wd) ? (i = ft_put(' ', p->wd)) : 0;
+		(*f)++;
+		return (i);
+	}
 	(p->prc < ft_strlen(nb) && p->dot) ? (p->zero = 0) : 0;
 	(p->sharp && (**f == 'o' || **f == 'O')) ? (c->a = 1) : 0;
-	(**f == 'p' || (p->sharp && (**f == 'x' || **f == 'X'))) ? (c->a = 2) : 0;	
+	(**f == 'p' || (p->sharp && *nb != '0' && (**f == 'x' || **f == 'X'))) ? (c->a = 2) : 0;	
 	if (p->zero)
 	{
 		(**f == 'p' || (p->sharp && **f == 'x')) ? (c->i = write(1, "0x", 2)) : 0;
