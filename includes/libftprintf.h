@@ -28,7 +28,7 @@ typedef struct		s_flags
 	char			space;
 	char			sharp;
 	char			zero;
-	int				wd;	//intmax_t??
+	int				wd;
 	char			dot;
 	int				prc;
 	char			hh;
@@ -41,7 +41,7 @@ typedef struct		s_flags
 
 typedef struct		s_cnt
 {
-	int				i;	//intmax_t??
+	int				i;
 	int				a;
 	int 			p;
 }					t_cnt;

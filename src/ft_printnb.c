@@ -23,7 +23,7 @@ void 	ft_printnb_3(t_flags *p, char **f, char **nb, t_cnt *c)
 	if (len >= p->prc)
 	{
 		p->wd > len ? c->i = ft_put(' ', p->wd - len - c->a - (*nb[0] == '-')) : 0;
-		if (**f == 'p' || (p->sharp && **f == 'x' && **nb != '0')) 
+		if ((**f == 'p' || (p->sharp && **f == 'x' && **nb != '0')))
 			c->i += write(1, "0x", 2);
 		(p->sharp && **f == 'X' && **nb != '0') ? (c->i += write(1, "0X", 2)) : 0;
 		(*nb[0] == '-') ? (c->i += write(1, "-", 1)) : 0;
@@ -82,11 +82,11 @@ int			ft_printnb(t_flags *p, char **f, va_list arg)
 	}
 	(p->prc < ft_strlen(nb) && p->dot) ? (p->zero = 0) : 0;
 	(p->sharp && (**f == 'o' || **f == 'O')) ? (c->a = 1) : 0;
-	(**f == 'p' || (p->sharp && *nb != '0' && (**f == 'x' || **f == 'X'))) ? (c->a = 2) : 0;	
+	((**f == 'p') || (p->sharp && (**f == 'x' || **f == 'X'))) ? (c->a = 2) : 0;	
 	if (p->zero)
 	{
-		(**f == 'p' || (p->sharp && **f == 'x')) ? (c->i = write(1, "0x", 2)) : 0;
-		(p->sharp && **f == 'X') ? (c->i = write(1, "0X", 2)) : 0;
+		(**f == 'p' || (p->sharp && *nb != '0' && **f == 'x')) ? (c->i = write(1, "0x", 2)) : 0;
+		(p->sharp && *nb != '0' && **f == 'X') ? (c->i = write(1, "0X", 2)) : 0;
 	}
 	i = ft_printnb_2(p, f, &nb, c);
 	ft_memdel((void **)&c);	

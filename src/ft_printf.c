@@ -44,6 +44,8 @@ int		ft_readparams(char **f, va_list arg) //everything after %, excluding %
 
 	ptr = (t_flags *)ft_memalloc(sizeof(t_flags));
 	(*f)++;
+	if (!**f)
+		return (0);
 	if (ft_strchr("-+#0 ", **f))
 		ft_addflags(ptr, f);
 	if ((**f >= '0' && **f <= '9') || **f == '*')
@@ -55,6 +57,8 @@ int		ft_readparams(char **f, va_list arg) //everything after %, excluding %
 	}
 	if (ft_strchr("hljztL", **f))
 		ft_addsize(ptr, f);
+	if (!ft_strchr("cCsSpdDioOuUxX%", **f))
+		return (0);
 	return (ft_printarg(ptr, f, arg));
 } 
 

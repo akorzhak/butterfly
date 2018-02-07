@@ -64,6 +64,8 @@ int				ft_unicode_c(t_flags *ptr, char **f, va_list arg)
 	char			*t;
 
 	c = (unsigned int)va_arg(arg, wchar_t);
+	if (c == 0)
+		return (ft_printc(ptr, f, c));
 	res = ft_strnew(4);
 	t = res;
 	(c < 2048) ? (ft_unicode_short(c, &t)) : (ft_unicode_wide(c, &t));

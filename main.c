@@ -20,24 +20,30 @@ int		main(void)
 
 	setlocale(LC_ALL, "");
 
+	// printf("%s\n", "------------------------------------------------");
+	// printf("= bm %d\n", ft_printf("%%"));
+	// printf("= bp %d\n", printf("%%"));
+	// printf("%s\n", "------------------------------------------------");
+	// printf("= bm %d\n", ft_printf("aa%%bb"));
+	// printf("= bp %d\n", printf("aa%%bb"));
+	// printf("%s\n", "------------------------------------------------");
+	// printf("= bm %d\n", ft_printf("%%%%%%%%%%"));
+	// printf("= bp %d\n", printf("%%%%%%%%%%"));
+	// printf("%s\n", "------------------------------------------------");
+	// printf("= bm %d\n", ft_printf(".%%.%%.%%.%%.%%.%%.%%.%%."));
+	// printf("= bp %d\n", printf(".%%.%%.%%.%%.%%.%%.%%.%%."));
 	printf("%s\n", "------------------------------------------------");
-	printf("= bm %d\n", ft_printf("%hU", 4294967296));
-	printf("= bp %d\n", printf("%hU", 4294967296));
+	printf("= bm %d\n", ft_printf("{%5p}", 0));
+	printf("= bp %d\n", printf("{%5p}", 0));
 	// printf("%s\n", "------------------------------------------------");
-	// printf("= bm %d\n", ft_printf("%p", &l));
-	// printf("= bp %d\n", printf("%p", &l));
+	// printf("= bm %d\n", ft_printf("% Zoooo"));
+	// printf("= bp %d\n", printf("% Zoooo"));
 	// printf("%s\n", "------------------------------------------------");
-	// printf("= bm %d\n", ft_printf("%p", &str));
-	// printf("= bp %d\n", printf("%p", &str));
+	// printf("= bm %d\n", ft_printf("{%}"));
+	// printf("= bp %d\n", printf("{%}"));
 	// printf("%s\n", "------------------------------------------------");
-	// printf("= bm %d\n", ft_printf("%p", &strlen));
-	// printf("= bp %d\n", printf("%p", &strlen));
-	// printf("%s\n", "------------------------------------------------");
-	// printf("= bm %d\n", ft_printf("%p", 0));
-	// printf("= bp %d\n", printf("%p", 0));
-	// printf("%s\n", "------------------------------------------------");
-	// printf("= bm %d\n", ft_printf("{%s}", ""));
-	// printf("= bp %d\n", printf("{%s}", ""));
+	// printf("= bm %d\n", ft_printf("{% %}"));
+	// printf("= bp %d\n", printf("{% %}"));
 
 //   	printf("= bm %d\n", ft_printf("%6.1C\n", L'是'));
 // // // 	printf("%s\n", "-------------------------");
