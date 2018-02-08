@@ -17,7 +17,7 @@ int		ft_printarg(t_flags *ptr, char **f, va_list arg)
 	int ret;
 	char *str;
 
-	ret = 1;
+	ret = 0;
 	if (**f == '%')
 		ret = ft_print_percent(ptr, f);
 	else if (ft_strchr("pdDioOuUxX", **f))
@@ -30,5 +30,16 @@ int		ft_printarg(t_flags *ptr, char **f, va_list arg)
 		ret = ft_printc(ptr, f, va_arg(arg, int));
 	else if (**f == 's')
 		ret = ft_prints(ptr, f, va_arg(arg, char *));
+	else
+	{
+		if (ptr->wd)
+		{
+			if (ptr->min)
+				ret = write(1, *f, 1) + ft_put(' ', ptr->wd - 1);
+			else
+				ret = ft_put(' ', ptr->wd - 1) + write(1, *f, 1);
+			(*f)++;
+		}
+	}
 	return (ret); //the number of read bytes
 }

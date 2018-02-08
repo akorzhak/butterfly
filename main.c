@@ -17,7 +17,6 @@ int		main(void)
 	int i;
 	unsigned long l;
 	char *str = "hi";
-
 	setlocale(LC_ALL, "");
 
 	// printf("%s\n", "------------------------------------------------");
@@ -33,8 +32,8 @@ int		main(void)
 	// printf("= bm %d\n", ft_printf(".%%.%%.%%.%%.%%.%%.%%.%%."));
 	// printf("= bp %d\n", printf(".%%.%%.%%.%%.%%.%%.%%.%%."));
 	printf("%s\n", "------------------------------------------------");
-	printf("= bm %d\n", ft_printf("{%5p}", 0));
-	printf("= bp %d\n", printf("{%5p}", 0));
+	printf("= bm %d\n", ft_printf("{% 03d}", 0));
+	printf("= bp %d\n", printf("{% 03d}", 0));
 	// printf("%s\n", "------------------------------------------------");
 	// printf("= bm %d\n", ft_printf("% Zoooo"));
 	// printf("= bp %d\n", printf("% Zoooo"));

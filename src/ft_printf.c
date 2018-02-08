@@ -57,8 +57,8 @@ int		ft_readparams(char **f, va_list arg) //everything after %, excluding %
 	}
 	if (ft_strchr("hljztL", **f))
 		ft_addsize(ptr, f);
-	if (!ft_strchr("cCsSpdDioOuUxX%", **f))
-		return (0);
+	// if (!ft_strchr("cCsSpdDioOuUxX%", **f))
+	// 	return (0);
 	return (ft_printarg(ptr, f, arg));
 } 
 

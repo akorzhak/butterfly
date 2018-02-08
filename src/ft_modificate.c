@@ -35,7 +35,8 @@ int 	ft_zero_plus_space(t_flags *p, char *nb, t_cnt *c)
 		(p->plus && nb[0] != '-') ? (ft_putchar('+'), c->i++, c->p++) : 0;
 		(nb[0] == '-' && p->zero) ? (c->i += write(1, "-", 1), c->a++) : 0;
 		(p->plus) ? c->i += ft_put('0', p->wd - len - p->plus) : 0;
-		(!p->plus) ? c->i += ft_put('0', p->wd - len - c->a) : 0;
+		if (p->wd > len + c->a + c->p)
+			(!p->plus) ? c->i += ft_put('0', p->wd - len - c->a - c->p) : 0;
 		(p->sharp && !p->zero) ? (c->i += ft_put('0', 1)) : 0;
 	}
 	else if (p->wd > p->prc + (p->plus || (nb[0] == '-' || p->space)))
@@ -65,15 +66,15 @@ int 	ft_min(t_flags *p, char *nb, char **f, int a)
 
 	i = 0; //for - or +
 	n = nb;
-	(p->plus && nb[0] != '-') ? (ft_putchar('+'), i++) : 0;
-	(p->space && !p->plus) ? (ft_putchar(' '), i++) : 0;
-	(nb[0] == '-') ? (ft_putchar('-'), i++, n++) : 0;
+	(p->plus && nb[0] != '-') ? (ft_putchar('+'), a++, i++) : 0;
+	(p->space && !p->plus) ? (ft_putchar(' '), a++, i++) : 0;
+	(nb[0] == '-') ? (ft_putchar('-'), a++, n++, i++) : 0;
 	len = ft_strlen(n);
 	if (p->wd && p->wd > len && p->wd > p->prc)
 	{
 		if (!p->prc || p->prc <= len)
 		{
-			if (**f == 's')
+			if (**f == 's' || **f == 'S')
 			{
 				if (p->prc)
 					i += write(1, n, p->prc) + ft_put(' ', p->wd - p->prc);
@@ -81,7 +82,11 @@ int 	ft_min(t_flags *p, char *nb, char **f, int a)
 					i += write(1, n, len) + ft_put(' ', p->wd - len);
 			}
 			else
-				i += write(1, n, len) + ft_put(' ', p->wd - len - i - a);
+			{	
+				i += write(1, n, len);
+				if (p->wd > (len + a))
+					i += ft_put(' ', p->wd - len - a);
+			}
 		}
 		else if (p->prc && p->wd > p->prc)
 		{
@@ -94,5 +99,7 @@ int 	ft_min(t_flags *p, char *nb, char **f, int a)
 		(p->prc > len) ? i += ft_put('0', p->prc - len) + write(1, n, len) : 0;
 		(p->prc <= len || !p->prc) ? i += write(1, n, len) : 0;
 	}
+	else
+		i += write(1, n, len);
 	return (i);
 }

@@ -83,6 +83,8 @@ int				ft_unicode_s(t_flags *ptr, char **f, va_list arg)
 	arr = (unsigned int *)va_arg(arg, int *);
 	if (arr == NULL)
 		return (ft_prints(ptr, f, "(null)"));
+	if (*arr == '\0' && (*f)++)
+		return (0);
 	res = ft_strnew(ft_intlen(arr) * 4);
 	t = res;
 	while (*arr)
