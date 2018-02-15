@@ -34,7 +34,9 @@ int 	ft_zero_plus_space(t_flags *p, char *nb, t_cnt *c)
 	{
 		(p->plus && nb[0] != '-') ? (ft_putchar('+'), c->i++, c->p++) : 0;
 		(nb[0] == '-' && p->zero) ? (c->i += write(1, "-", 1), c->a++) : 0;
-		(p->plus) ? c->i += ft_put('0', p->wd - len - p->plus) : 0;
+		if (p->wd > len + p->plus)
+			(p->plus) ? c->i += ft_put('0', p->wd - len - p->plus) : 0;
+		(p->space) ? (c->i += write(1, " ", 1), p->space = 0, c->p++) : 0;
 		if (p->wd > len + c->a + c->p)
 			(!p->plus) ? c->i += ft_put('0', p->wd - len - c->a - c->p) : 0;
 		(p->sharp && !p->zero) ? (c->i += ft_put('0', 1)) : 0;

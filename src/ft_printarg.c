@@ -37,7 +37,12 @@ int		ft_printarg(t_flags *ptr, char **f, va_list arg)
 			if (ptr->min)
 				ret = write(1, *f, 1) + ft_put(' ', ptr->wd - 1);
 			else
-				ret = ft_put(' ', ptr->wd - 1) + write(1, *f, 1);
+			{
+				if (ptr->zero)
+					ret = ft_put('0', ptr->wd - 1) + write(1, *f, 1);
+				else
+					ret = ft_put(' ', ptr->wd - 1) + write(1, *f, 1);
+			}
 			(*f)++;
 		}
 	}

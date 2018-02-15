@@ -31,11 +31,11 @@ void 	ft_printnb_3(t_flags *p, char **f, char **nb, t_cnt *c)
 	else if (len < p->prc)
 	{
 		if (p->wd > p->prc)
-			c->i += ft_put(' ', p->wd - p->prc - c->a);
+			c->i += ft_put(' ', p->wd - p->prc - (*nb[0] == '-') - c->a);
 		if (**f == 'p' && c->a == 2)
 			c->i += write(1, "0x", 2);
 		(*nb[0] == '-') ? (c->i += write(1, "-", 1)) : 0;
-		c->i += ft_put('0', p->prc - len);
+		c->i += ft_put('0', p->prc - len - c->p);
 	}
 	if (p->sharp && (**f == 'o' || **f == 'O') && **nb != '0' && c->a)
 		c->i += write(1, "0", 1);
@@ -89,15 +89,21 @@ int			ft_printnb(t_flags *p, char **f, va_list arg)
 	(p->prc < ft_strlen(nb) && p->dot) ? (p->zero = 0) : 0;
 	if (**f == 'p' || (ft_strchr("oOxX", **f) && p->sharp && *nb != '0'))
 	{
-		if (p->zero || p->min || (p->wd <= ft_strlen(nb) && p->prc >= p->wd - 2))
+		if (p->zero || p->min || p->wd <= ft_strlen(nb) || p->prc >= p->wd - 2)
 		{
-			if (**f == 'X')
+			if (**f == 'X' && (c->p = 2))
 				c->i = write(1, "0X", 2);
 			else if (**f == 'x' || **f == 'p')
+			{
 				c->i = write(1, "0x", 2);
+				if ((**f == 'x' && p->prc < ft_strlen(nb)) || (**f == 'p' && p->zero))
+					c->p = 2;
+			}
 			else
+			{
 				c->i = write(1, "0", 1);
-			c->p = 2;
+				c->p = 1;
+			}
 		}
 		else 
 			(ft_strchr("oO", **f)) ? (c->a = 1) : (c->a = 2);

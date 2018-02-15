@@ -33,7 +33,7 @@ int		ft_getint(char **f, va_list arg, int param)
 	if (**f == '*')
 	{
 		param = va_arg(arg, int);
-		*f = ++*f;
+		(*f)++;
 	}
 	return (param);
 }
@@ -49,11 +49,19 @@ int		ft_readparams(char **f, va_list arg) //everything after %, excluding %
 	if (ft_strchr("-+#0 ", **f))
 		ft_addflags(ptr, f);
 	if ((**f >= '0' && **f <= '9') || **f == '*')
+	{
 		ptr->wd = ft_getint(f, arg, ptr->wd);
+		if (ptr->wd < 0)
+		{
+			ptr->wd = -ptr->wd;
+			ptr->min = 1;
+		}
+	}
 	if ((**f == '.') && ((*f)++))
 	{
 		ptr->dot = 1;
 		ptr->prc = ft_getint(f, arg, ptr->prc);
+		(ptr->prc < 0) ? (ptr->prc = 0, ptr->dot = 0) : 0;
 	}
 	if (ft_strchr("hljztL", **f))
 		ft_addsize(ptr, f);

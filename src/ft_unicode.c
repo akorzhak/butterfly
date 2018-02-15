@@ -80,6 +80,8 @@ int				ft_unicode_s(t_flags *ptr, char **f, va_list arg)
 	char			*res;
 	char			*t;
 
+	if (ptr->dot && !ptr->prc)
+		return (ft_prints(ptr, f, "\0"));
 	arr = (unsigned int *)va_arg(arg, int *);
 	if (arr == NULL)
 		return (ft_prints(ptr, f, "(null)"));

@@ -24,10 +24,12 @@ int			ft_printc(t_flags *ptr, char **f, char c)
 		{
 			if (ptr->zero && !ptr->min)
 				i = ft_put('0', ptr->wd - 1);
-			else
+			else if (!ptr->min)
 				i = ft_put(' ', ptr->wd - 1);
 		}
 		i += write(1, "\0", 1);
+		if (ptr->min)
+			i += ft_put(' ', ptr->wd - 1);
 	}
 	else
 	{
