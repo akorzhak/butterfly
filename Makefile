@@ -14,12 +14,10 @@ NAME = libftprintf.a
 
 C = gcc
 
-CFLAG = -Wno-format-invalid-specifier -Wno-format -Wno-macro-redefined\
-	-Wno-implicitly-unsigned-literal
+CFLAG = -Wall -Wextra -Werror
 
 LIBDIR = libft
 
-#LIBOBJ = $(LIBDIR)/*.o
 LIB = $(LIBDIR)/libft.a
 
 SRCDIR = src

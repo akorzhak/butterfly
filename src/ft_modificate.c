@@ -38,7 +38,12 @@ int 	ft_zero_plus_space(t_flags *p, char *nb, t_cnt *c)
 			(p->plus) ? c->i += ft_put('0', p->wd - len - p->plus) : 0;
 		(p->space) ? (c->i += write(1, " ", 1), p->space = 0, c->p++) : 0;
 		if (p->wd > len + c->a + c->p)
-			(!p->plus) ? c->i += ft_put('0', p->wd - len - c->a - c->p) : 0;
+		{
+			if (p->zero)
+				(!p->plus) ? c->i += ft_put('0', p->wd - len - c->a - c->p) : 0;
+			else
+				c->i += ft_put(' ', p->wd - len - c->a - c->p);
+		}
 		(p->sharp && !p->zero) ? (c->i += ft_put('0', 1)) : 0;
 	}
 	else if (p->wd > p->prc + (p->plus || (nb[0] == '-' || p->space)))
@@ -47,7 +52,7 @@ int 	ft_zero_plus_space(t_flags *p, char *nb, t_cnt *c)
 			c->i += ft_put(' ', p->wd - p->prc - (nb[0] == '-' || p->plus || p->space));
 		else
 		{
-			c->i += ft_put(' ', p->wd - (nb[0] == '-' || p->plus || p->space));
+			c->i += ft_put(' ', p->wd - (nb[0] == '-' || p->plus || p->space) - len);
 			(p->sharp && *n != '0') ? (c->i += ft_put('0', 1)) : 0;			
 		}
 	}

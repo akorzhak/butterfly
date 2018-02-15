@@ -48,7 +48,7 @@ int		ft_readparams(char **f, va_list arg) //everything after %, excluding %
 		return (0);
 	if (ft_strchr("-+#0 ", **f))
 		ft_addflags(ptr, f);
-	if ((**f >= '0' && **f <= '9') || **f == '*')
+	while ((**f >= '0' && **f <= '9') || **f == '*')
 	{
 		ptr->wd = ft_getint(f, arg, ptr->wd);
 		if (ptr->wd < 0)

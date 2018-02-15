@@ -32,8 +32,8 @@ int		main(void)
 	// printf("= bm %d\n", ft_printf(".%%.%%.%%.%%.%%.%%.%%.%%."));
 	// printf("= bp %d\n", printf(".%%.%%.%%.%%.%%.%%.%%.%%."));
 	printf("%s\n", "------------------------------------------------");
-	printf("= bm %d\n", ft_printf("{%*3d}", 4, 0));
-	printf("= bp %d\n", printf("{%*3d}", 0, 4));
+	printf("= bm %d\n", ft_printf("%+04i", 42));
+	printf("= bp %d\n", printf("%+04i", 42));
 	// printf("%s\n", "------------------------------------------------");
 	// printf("= bm %d\n", ft_printf("% Zoooo"));
 	// printf("= bp %d\n", printf("% Zoooo"));
