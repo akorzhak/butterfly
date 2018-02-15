@@ -46,5 +46,5 @@ int		ft_printarg(t_flags *ptr, char **f, va_list arg)
 			(*f)++;
 		}
 	}
-	return (ret); //the number of read bytes
+	return (ret);
 }

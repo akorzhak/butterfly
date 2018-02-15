@@ -15,9 +15,12 @@
 int			ft_print_percent(t_flags *ptr, char **f)
 {
 	char *str;
+	int 	i;
 
 	str = ft_strnew(1);
 	*str = '%';
 	ptr->space = 0;
-	return (ft_prints(ptr, f, str));
+	i = ft_prints(ptr, f, str);
+	ft_strdel(&str);
+	return (i);
 }

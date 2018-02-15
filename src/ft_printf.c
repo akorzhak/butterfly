@@ -41,6 +41,7 @@ int		ft_getint(char **f, va_list arg, int param)
 int		ft_readparams(char **f, va_list arg) //everything after %, excluding %
 {
 	t_flags *ptr;
+	int 	i;
 
 	ptr = (t_flags *)ft_memalloc(sizeof(t_flags));
 	(*f)++;
@@ -65,9 +66,9 @@ int		ft_readparams(char **f, va_list arg) //everything after %, excluding %
 	}
 	if (ft_strchr("hljztL", **f))
 		ft_addsize(ptr, f);
-	// if (!ft_strchr("cCsSpdDioOuUxX%", **f))
-	// 	return (0);
-	return (ft_printarg(ptr, f, arg));
+	i = ft_printarg(ptr, f, arg);
+	ft_memdel(&ptr);
+	return (i);
 } 
 
 int		ft_printf(const char *format, ...)

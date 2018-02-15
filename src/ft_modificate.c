@@ -71,7 +71,7 @@ int 	ft_min(t_flags *p, char *nb, char **f, int a)
 	int 	len;
 	char	flag;
 
-	i = 0; //for - or +
+	i = 0;
 	n = nb;
 	(p->plus && nb[0] != '-') ? (ft_putchar('+'), a++, i++) : 0;
 	(p->space && !p->plus) ? (ft_putchar(' '), a++, i++) : 0;

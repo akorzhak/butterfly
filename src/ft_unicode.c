@@ -62,6 +62,7 @@ int				ft_unicode_c(t_flags *ptr, char **f, va_list arg)
 	unsigned int 	c;
 	char			*res;
 	char			*t;
+	int 			i;
 
 	c = (unsigned int)va_arg(arg, wchar_t);
 	if (c == 0)
@@ -70,7 +71,9 @@ int				ft_unicode_c(t_flags *ptr, char **f, va_list arg)
 	t = res;
 	(c < 2048) ? (ft_unicode_short(c, &t)) : (ft_unicode_wide(c, &t));
 	(ptr->prc) ? (ptr->prc = ft_strlen(res)) : 0;
-	return (ft_prints(ptr, f, res)); //delete r!!!!!
+	i = ft_prints(ptr, f, res);
+	ft_strdel(&res);
+	return (i);
 }
 
 int				ft_unicode_s(t_flags *ptr, char **f, va_list arg)
@@ -79,6 +82,7 @@ int				ft_unicode_s(t_flags *ptr, char **f, va_list arg)
 	unsigned int	*arr;
 	char			*res;
 	char			*t;
+	int 			i;
 
 	if (ptr->dot && !ptr->prc)
 		return (ft_prints(ptr, f, "\0"));
@@ -102,5 +106,7 @@ int				ft_unicode_s(t_flags *ptr, char **f, va_list arg)
 		}
 		t++;
 	}
-	return (ft_prints(ptr, f, res));
+	i = ft_prints(ptr, f, res);
+	ft_strdel(&res);
+	return (i);
 }
