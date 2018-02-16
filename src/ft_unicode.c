@@ -12,7 +12,7 @@
 
 #include "../includes/libftprintf.h"
 
-static int	ft_unicode_wide(unsigned int c, char **temp)
+static int		ft_unicode_wide(unsigned int c, char **temp)
 {
 	unsigned int mask2 = 14712960;
 	unsigned int mask3 = 4034953344;
@@ -76,22 +76,11 @@ int				ft_unicode_c(t_flags *ptr, char **f, va_list arg)
 	return (i);
 }
 
-int				ft_unicode_s(t_flags *ptr, char **f, va_list arg)
+static void		ft_fillarr(t_flags *ptr, unsigned int *arr, char *res)
 {
 	unsigned int 	c;
-	unsigned int	*arr;
-	char			*res;
 	char			*t;
-	int 			i;
 
-	if (ptr->dot && !ptr->prc)
-		return (ft_prints(ptr, f, "\0"));
-	arr = (unsigned int *)va_arg(arg, int *);
-	if (arr == NULL)
-		return (ft_prints(ptr, f, "(null)"));
-	if (*arr == '\0' && (*f)++)
-		return (0);
-	res = ft_strnew(ft_intlen(arr) * 4);
 	t = res;
 	while (*arr)
 	{
@@ -106,6 +95,23 @@ int				ft_unicode_s(t_flags *ptr, char **f, va_list arg)
 		}
 		t++;
 	}
+}
+
+int				ft_unicode_s(t_flags *ptr, char **f, va_list arg)
+{
+	unsigned int	*arr;
+	char			*res;
+	int				i;
+
+	if (ptr->dot && !ptr->prc)
+		return (ft_prints(ptr, f, "\0"));
+	arr = (unsigned int *)va_arg(arg, int *);
+	if (arr == NULL)
+		return (ft_prints(ptr, f, "(null)"));
+	if (*arr == '\0' && (*f)++)
+		return (0);
+	res = ft_strnew(ft_intlen(arr) * 4);	
+	ft_fillarr(ptr, arr, res);	
 	i = ft_prints(ptr, f, res);
 	ft_strdel(&res);
 	return (i);

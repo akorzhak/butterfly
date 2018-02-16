@@ -12,12 +12,32 @@
 
 #include "../includes/libftprintf.h"
 
-int		ft_printarg(t_flags *ptr, char **f, va_list arg)
+static int 	ft_print_undef_spec(t_flags *ptr, char **f)
 {
-	int ret;
-	char *str;
+	int 	ret;
 
 	ret = 0;
+	if (ptr->wd)
+	{
+		if (ptr->min)
+			ret = write(1, *f, 1) + ft_put(' ', ptr->wd - 1);
+		else
+		{
+			if (ptr->zero)
+				ret = ft_put('0', ptr->wd - 1) + write(1, *f, 1);
+			else
+				ret = ft_put(' ', ptr->wd - 1) + write(1, *f, 1);
+		}
+		(*f)++;
+	}
+	return (ret);
+}
+
+int		ft_printarg(t_flags *ptr, char **f, va_list arg)
+{
+	int 	ret;
+	char 	*str;
+
 	if (**f == '%')
 		ret = ft_print_percent(ptr, f);
 	else if (ft_strchr("pdDioOuUxX", **f))
@@ -31,20 +51,6 @@ int		ft_printarg(t_flags *ptr, char **f, va_list arg)
 	else if (**f == 's')
 		ret = ft_prints(ptr, f, va_arg(arg, char *));
 	else
-	{
-		if (ptr->wd)
-		{
-			if (ptr->min)
-				ret = write(1, *f, 1) + ft_put(' ', ptr->wd - 1);
-			else
-			{
-				if (ptr->zero)
-					ret = ft_put('0', ptr->wd - 1) + write(1, *f, 1);
-				else
-					ret = ft_put(' ', ptr->wd - 1) + write(1, *f, 1);
-			}
-			(*f)++;
-		}
-	}
+		ret = ft_print_undef_spec(ptr, f);
 	return (ret);
 }

@@ -25,7 +25,7 @@ static int			size_of_arr(uintmax_t val, int base)
 	return (len);
 }
 
-static char			*ft_s_itoa_base(intmax_t value, int base)
+static char			*itoa_base(intmax_t value, int base)
 {
 	char			*arr;
 	int				len;
@@ -50,7 +50,7 @@ static char			*ft_s_itoa_base(intmax_t value, int base)
 	return (arr);
 }
 
-char	*ft_get_snb(t_flags *ptr, char **f, va_list arg) //dDi
+char			*ft_get_snb(t_flags *ptr, char **f, va_list arg)
 {
 	intmax_t 	nb;
 	char 		*n; 
@@ -71,6 +71,6 @@ char	*ft_get_snb(t_flags *ptr, char **f, va_list arg) //dDi
 		(**f == 'd' || **f == 'i') ? (nb = va_arg(arg, int)) : 0;
 	(!nb) ? (n = ft_strnew(1)) : 0;
 	(!nb) ? (*n = '0') : 0;
-	(nb) ? (n = ft_s_itoa_base(nb, 10)) : 0;
+	(nb) ? (n = itoa_base(nb, 10)) : 0;
 	return (n);
 }

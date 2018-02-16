@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_modificate.c                                 :+:      :+:    :+:   */
+/*   ft_modificate.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akorzhak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,9 +12,9 @@
 
 #include "../includes/libftprintf.h"
 
-int 	ft_put(char c, int nb)
+int				ft_put(char c, int nb)
 {
-	int 	i;
+	int		i;
 
 	i = nb;
 	while (nb--)
@@ -22,30 +22,33 @@ int 	ft_put(char c, int nb)
 	return (i);
 }
 
-int 	ft_zero_plus_space(t_flags *p, char *nb, t_cnt *c)
+static void		ft_handlewidth(t_flags *p, char *nb, t_cnt *c, int len)
+{
+	(p->plus && nb[0] != '-') ? (ft_putchar('+'), c->i++, c->p++) : 0;
+	(nb[0] == '-' && p->zero) ? (c->i += write(1, "-", 1), c->a++) : 0;
+	if (p->wd > len + p->plus)
+		(p->plus) ? c->i += ft_put('0', p->wd - len - p->plus) : 0;
+	(p->space) ? (c->i += write(1, " ", 1), p->space = 0, c->p++) : 0;
+	if (p->wd > len + c->a + c->p)
+	{
+		if (p->zero)
+			(!p->plus) ? c->i += ft_put('0', p->wd - len - c->a - c->p) : 0;
+		else
+			c->i += ft_put(' ', p->wd - len - c->a - c->p);
+	}
+	(p->sharp && !p->zero) ? (c->i += ft_put('0', 1)) : 0;
+}
+
+int				ft_zero_plus_space(t_flags *p, char *nb, t_cnt *c)
 {
 	char	*n;
-	int 	len;
+	int		len;
 
 	n = nb;
 	(n[0] == '-') ? (n++) : 0;
 	len = ft_strlen(n);
 	if (p->wd && !p->prc)
-	{
-		(p->plus && nb[0] != '-') ? (ft_putchar('+'), c->i++, c->p++) : 0;
-		(nb[0] == '-' && p->zero) ? (c->i += write(1, "-", 1), c->a++) : 0;
-		if (p->wd > len + p->plus)
-			(p->plus) ? c->i += ft_put('0', p->wd - len - p->plus) : 0;
-		(p->space) ? (c->i += write(1, " ", 1), p->space = 0, c->p++) : 0;
-		if (p->wd > len + c->a + c->p)
-		{
-			if (p->zero)
-				(!p->plus) ? c->i += ft_put('0', p->wd - len - c->a - c->p) : 0;
-			else
-				c->i += ft_put(' ', p->wd - len - c->a - c->p);
-		}
-		(p->sharp && !p->zero) ? (c->i += ft_put('0', 1)) : 0;
-	}
+		ft_handlewidth(p, nb, c, len);
 	else if (p->wd > p->prc + (p->plus || (nb[0] == '-' || p->space)))
 	{
 		if (p->prc > len)
@@ -53,7 +56,7 @@ int 	ft_zero_plus_space(t_flags *p, char *nb, t_cnt *c)
 		else
 		{
 			c->i += ft_put(' ', p->wd - (nb[0] == '-' || p->plus || p->space) - len);
-			(p->sharp && *n != '0') ? (c->i += ft_put('0', 1)) : 0;			
+			(p->sharp && *n != '0') ? (c->i += ft_put('0', 1)) : 0;
 		}
 	}
 	(p->space && !p->plus && nb[0] != '-') ? (ft_putchar(' '), c->i++) : 0;
@@ -64,11 +67,11 @@ int 	ft_zero_plus_space(t_flags *p, char *nb, t_cnt *c)
 	return (c->i);
 }
 
-int 	ft_min(t_flags *p, char *nb, char **f, int a)
+int				ft_min(t_flags *p, char *nb, char **f, int a)
 {
-	int 	i;
+	int		i;
 	char	*n;
-	int 	len;
+	int		len;
 	char	flag;
 
 	i = 0;
@@ -89,7 +92,7 @@ int 	ft_min(t_flags *p, char *nb, char **f, int a)
 					i += write(1, n, len) + ft_put(' ', p->wd - len);
 			}
 			else
-			{	
+			{
 				i += write(1, n, len);
 				if (p->wd > (len + a))
 					i += ft_put(' ', p->wd - len - a);

@@ -18,21 +18,15 @@ void		ft_addsize(t_flags *ptr, char **f)
 	{
 		if (**f == 'h')
 		{
-			if (ft_strnequ(*f, "hh", 2))
-			{
+			if (ft_strnequ(*f, "hh", 2) && (*f)++)
 				ptr->hh = 1;
-				(*f)++;
-			}
 			else
 				ptr->h = 1;
 		}
 		else if (**f == 'l')
 		{
-			if (ft_strnequ(*f, "ll", 2))
-			{
+			if (ft_strnequ(*f, "ll", 2) && (*f)++)
 				ptr->ll = 1;
-				(*f)++;
-			}
 			else
 				ptr->l = 1;
 		}

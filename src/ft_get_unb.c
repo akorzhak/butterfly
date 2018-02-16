@@ -25,11 +25,11 @@ static int			size_of_arr(uintmax_t value, int base)
 	return (len);
 }
 
-static char			*ft_u_itoa_base(t_flags *p, uintmax_t v, int base, char **f)
-{	
+static char			*itoa_base(t_flags *p, uintmax_t v, int base, char **f)
+{
 	char			*arr;
 	int				len;
-	char 			a;
+	char			a;
 
 	if (**f == 'x' || **f == 'p') 
 		a = 'a';
@@ -48,24 +48,24 @@ static char			*ft_u_itoa_base(t_flags *p, uintmax_t v, int base, char **f)
 	return (arr);
 }
 
-static char 	*ft_convert_to_char(t_flags *ptr, uintmax_t nb, char **f)
+static char			*convert_to_char(t_flags *ptr, uintmax_t nb, char **f)
 {
 	if (**f == 'o' || **f == 'O')
-		return (ft_u_itoa_base(ptr, ABS(nb), 8, f));	
+		return (itoa_base(ptr, ABS(nb), 8, f));
 	else if (**f == 'u' || **f == 'U')
-		return (ft_u_itoa_base(ptr, ABS(nb), 10, f));
+		return (itoa_base(ptr, ABS(nb), 10, f));
 	else if (**f == 'X')
-		return (ft_u_itoa_base(ptr, ABS(nb), 16, f));
+		return (itoa_base(ptr, ABS(nb), 16, f));
 	else if (**f == 'x')
-		return (ft_u_itoa_base(ptr, ABS(nb), 16, f));
+		return (itoa_base(ptr, ABS(nb), 16, f));
 	else
-		return (ft_u_itoa_base(ptr, ABS(nb), 16, f));
+		return (itoa_base(ptr, ABS(nb), 16, f));
 }
 
-char	*ft_get_unb(t_flags *ptr, char **f, va_list arg) //"OoUuXxp"
+char				*ft_get_unb(t_flags *ptr, char **f, va_list arg)
 {
-	uintmax_t 	nb;
-	char 		*n;
+	uintmax_t	nb;
+	char		*n;
 
 	if (ft_strchr("OU", **f))
 		nb = va_arg(arg, unsigned long);
@@ -81,15 +81,12 @@ char	*ft_get_unb(t_flags *ptr, char **f, va_list arg) //"OoUuXxp"
 		nb = va_arg(arg, size_t);
 	else if (ptr->j)
 		nb = va_arg(arg, uintmax_t);
-	else
-	{
-		(ft_strchr("ouxX", **f)) ? (nb = va_arg(arg, unsigned int)) : 0;
-		(**f == 'p') ? (nb = va_arg(arg, uintmax_t)) : 0;	
-	}
+	else if (ft_strchr("ouxX", **f))
+		nb = va_arg(arg, unsigned int);
+	else if (**f == 'p')
+		nb = va_arg(arg, uintmax_t);
 	(!nb) ? (n = ft_strnew(1)) : 0;
 	(!nb) ? (*n = '0') : 0;
-	ptr->space = 0;
-	ptr->plus = 0;
-	(nb) ? (n = ft_convert_to_char(ptr, nb, f)) : 0;
+	(nb) ? (n = convert_to_char(ptr, nb, f)) : 0;
 	return (n);
 }
