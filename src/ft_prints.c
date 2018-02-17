@@ -12,41 +12,48 @@
 
 #include "../includes/libftprintf.h"
 
-
-int			ft_prints(t_flags *ptr, char **f, char *s)
+int		ft_handlecase(t_flags *ptr, char *s, size_t len)
 {
 	int i;
 
 	i = 0;
+	if (ptr->prc && ptr->prc < len)
+	{
+		if (ptr->wd > ptr->prc)
+			i = ft_put(' ', ptr->wd - ptr->prc);
+		i += write(1, s, ptr->prc);
+	}
+	else
+	{
+		if (ptr->zero)
+			i = ft_put('0', ptr->wd - len);
+		else
+		{
+			if (ptr->wd > len)
+				i = ft_put(' ', ptr->wd - len);
+		}
+		i += write(1, s, len);
+	}
+	return (i);
+}
+
+int		ft_prints(t_flags *ptr, char **f, char *s)
+{
+	int		i;
+	size_t	len;
+
 	(s == NULL) ? s = "(null)" : 0;
 	if (ptr->dot && !ptr->prc && **f != '%')
 		s = "\0";
-	if (ptr->min && ptr->wd > ft_strlen(s))
+	len = ft_strlen(s);
+	if (ptr->min && ptr->wd > len)
 		i = ft_min(ptr, s, f, 0);
 	else if (ptr->wd)
-	{
-		if (ptr->prc && ptr->prc < ft_strlen(s))
-		{
-			if (ptr->wd > ptr->prc)
-				i = ft_put(' ', ptr->wd - ptr->prc);
-			i += write(1, s, ptr->prc);
-		}
-		else
-		{
-			if (ptr->zero)
-				i = ft_put('0', ptr->wd - ft_strlen(s));
-			else
-			{
-				if (ptr->wd > ft_strlen(s))
-					i = ft_put(' ', ptr->wd - ft_strlen(s));
-			}
-			i += write(1, s, ft_strlen(s));
-		}
-	}
-	else if (ptr->prc && ptr->prc < ft_strlen(s))
+		i = ft_handlecase(ptr, s, len);
+	else if (ptr->prc && ptr->prc < len)
 		i = write(1, s, ptr->prc);
 	else
-		i = write(1, s, ft_strlen(s));
+		i = write(1, s, len);
 	(*f)++;
 	return (i);
 }

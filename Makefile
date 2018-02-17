@@ -24,7 +24,7 @@ SRCDIR = src
 
 SRC = ft_printf.c ft_addsize.c ft_addflags.c ft_printarg.c ft_printnb.c\
 	ft_get_unb.c ft_get_snb.c ft_unicode.c ft_intlen.c ft_printc.c\
-	ft_prints.c ft_modificate.c ft_print_percent.c
+	ft_prints.c ft_zero_plus_space.c ft_print_percent.c ft_put.c ft_min.c
 
 IDIR = includes
 
@@ -35,22 +35,25 @@ OBJ = $(SRC:.c=.o)
 .PHONY: all clean fclean
 
 %.o: $(SRCDIR)/%.c
-	$(C) -c $<
+	@$(C) -c $<
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	make -C $(LIBDIR)
-	cp $(LIB) $(NAME)
-	ar rc $(NAME) $(OBJ)
-	ranlib $(NAME)
+	@make -C $(LIBDIR)
+	@cp $(LIB) $(NAME)
+	@ar rc $(NAME) $(OBJ)
+	@ranlib $(NAME)
+	@echo libftprintf.a has been successfully created :')'
 
 clean:
-	make clean -C $(LIBDIR)
-	/bin/rm -f $(OBJ) *~
+	@make clean -C $(LIBDIR)
+	@/bin/rm -f $(OBJ) *~
+	@echo object files have been removed
 
 fclean: clean
-	make fclean -C $(LIBDIR)
-	/bin/rm -f $(NAME)
+	@make fclean -C $(LIBDIR)
+	@/bin/rm -f $(NAME)
+	@echo libftprintf.a has been removed :'('
 
 re: fclean all

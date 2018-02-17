@@ -12,9 +12,9 @@
 
 #include "../includes/libftprintf.h"
 
-static int 	ft_print_undef_spec(t_flags *ptr, char **f)
+static int	ft_print_undef_spec(t_flags *ptr, char **f)
 {
-	int 	ret;
+	int		ret;
 
 	ret = 0;
 	if (ptr->wd)
@@ -33,10 +33,10 @@ static int 	ft_print_undef_spec(t_flags *ptr, char **f)
 	return (ret);
 }
 
-int		ft_printarg(t_flags *ptr, char **f, va_list arg)
+int			ft_printarg(t_flags *ptr, char **f, va_list arg)
 {
-	int 	ret;
-	char 	*str;
+	int		ret;
+	char	*str;
 
 	if (**f == '%')
 		ret = ft_print_percent(ptr, f);
@@ -45,7 +45,7 @@ int		ft_printarg(t_flags *ptr, char **f, va_list arg)
 	else if (**f == 'C' || (ptr->l && **f == 'c'))
 		ret = ft_unicode_c(ptr, f, arg);
 	else if (**f == 'S' || (ptr->l && **f == 's'))
-		ret = ft_unicode_s(ptr, f, arg);	
+		ret = ft_unicode_s(ptr, f, arg);
 	else if (**f == 'c')
 		ret = ft_printc(ptr, f, va_arg(arg, int));
 	else if (**f == 's')

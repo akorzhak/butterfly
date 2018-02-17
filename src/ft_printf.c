@@ -58,12 +58,12 @@ int		ft_readparams(char **f, va_list arg)
 	{
 		ptr->dot = 1;
 		ptr->prc = ft_getint(f, arg, ptr->prc);
-		(ptr->prc < 0) ? (ptr->prc = 0, ptr->dot = 0) : 0;
+		(ptr->prc < 0) ? (ptr->dot = 0) : 0;
+		(ptr->prc < 0) ? (ptr->prc = 0) : 0;
 	}
-	if (ft_strchr("hljztL", **f))
-		ft_addsize(ptr, f);
+	(ft_strchr("hljztL", **f)) ? ft_addsize(ptr, f) : 0;
 	i = ft_printarg(ptr, f, arg);
-	ft_memdel(&ptr);
+	ft_memdel((void **)&ptr);
 	return (i);
 }
 

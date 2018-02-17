@@ -14,9 +14,11 @@
 
 static int		ft_unicode_wide(unsigned int c, char **temp)
 {
-	unsigned int mask2 = 14712960;
-	unsigned int mask3 = 4034953344;
+	unsigned int mask2;
+	unsigned int mask3;
 
+	mask2 = 14712960;
+	mask3 = 4034953344;
 	if (c < 65536)
 	{
 		**temp = (mask2 >> 16) | ((c >> 12) << 28) >> 28;
@@ -41,8 +43,9 @@ static int		ft_unicode_wide(unsigned int c, char **temp)
 
 static int		ft_unicode_short(unsigned int c, char **temp)
 {
-	unsigned int mask1 = 49280;
+	unsigned int mask1;
 
+	mask1 = 49280;
 	if (c < 128)
 	{
 		**temp = c;
@@ -54,15 +57,15 @@ static int		ft_unicode_short(unsigned int c, char **temp)
 		(*temp)++;
 		**temp = ((mask1 << 24) >> 24) | (c << 26) >> 26;
 		return (2);
-	}	
+	}
 }
 
 int				ft_unicode_c(t_flags *ptr, char **f, va_list arg)
 {
-	unsigned int 	c;
+	unsigned int	c;
 	char			*res;
 	char			*t;
-	int 			i;
+	int				i;
 
 	c = (unsigned int)va_arg(arg, wchar_t);
 	if (c == 0)
@@ -78,7 +81,7 @@ int				ft_unicode_c(t_flags *ptr, char **f, va_list arg)
 
 static void		ft_fillarr(t_flags *ptr, unsigned int *arr, char *res)
 {
-	unsigned int 	c;
+	unsigned int	c;
 	char			*t;
 
 	t = res;
@@ -91,7 +94,7 @@ static void		ft_fillarr(t_flags *ptr, unsigned int *arr, char *res)
 		{
 			while (c--)
 				*t-- = '\0';
-			break;
+			break ;
 		}
 		t++;
 	}
@@ -110,8 +113,8 @@ int				ft_unicode_s(t_flags *ptr, char **f, va_list arg)
 		return (ft_prints(ptr, f, "(null)"));
 	if (*arr == '\0' && (*f)++)
 		return (0);
-	res = ft_strnew(ft_intlen(arr) * 4);	
-	ft_fillarr(ptr, arr, res);	
+	res = ft_strnew(ft_intlen(arr) * 4);
+	ft_fillarr(ptr, arr, res);
 	i = ft_prints(ptr, f, res);
 	ft_strdel(&res);
 	return (i);

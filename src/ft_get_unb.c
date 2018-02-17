@@ -31,14 +31,14 @@ static char			*itoa_base(t_flags *p, uintmax_t v, int base, char **f)
 	int				len;
 	char			a;
 
-	if (**f == 'x' || **f == 'p') 
+	if (**f == 'x' || **f == 'p')
 		a = 'a';
 	else
 		a = 'A';
 	len = size_of_arr(v, base);
-	arr = ft_strnew(len--);	
+	arr = ft_strnew(len--);
 	while (v > 0)
-	{			
+	{
 		if ((v % base) < 10)
 			arr[len--] = (char)(v % base + '0');
 		else

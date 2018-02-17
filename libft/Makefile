@@ -34,15 +34,15 @@ INCLUDE = libft.h
 # the .o file depends upon the .c version of the file and the INCLUDE.
 # automatic variables $<: the name of the prerequisite (a .c file)
 %.o: %.c $(INCLUDE)
-	$(C) $(CFLAG) -c $<
+	@$(C) $(CFLAG) -c $<
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar rc $(NAME) $(OBJ)
-	ranlib $(NAME)
+	@ar rc $(NAME) $(OBJ)
+	@ranlib $(NAME)
 clean:
-	/bin/rm -f $(OBJ) *~ 
+	@/bin/rm -f $(OBJ) *~
 fclean: clean
-	/bin/rm -f $(NAME)
+	@/bin/rm -f $(NAME)
 re: fclean all

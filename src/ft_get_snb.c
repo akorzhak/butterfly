@@ -14,7 +14,7 @@
 
 static int			size_of_arr(uintmax_t val, int base)
 {
-	int				len;
+	int	len;
 
 	len = 1;
 	while (val >= base)
@@ -50,10 +50,10 @@ static char			*itoa_base(intmax_t value, int base)
 	return (arr);
 }
 
-char			*ft_get_snb(t_flags *ptr, char **f, va_list arg)
+char				*ft_get_snb(t_flags *ptr, char **f, va_list arg)
 {
-	intmax_t 	nb;
-	char 		*n; 
+	intmax_t	nb;
+	char		*n;
 
 	if (**f == 'D' || ptr->l)
 		nb = va_arg(arg, long);
