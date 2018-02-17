@@ -42,7 +42,7 @@ static void		ft_handlecase1(t_flags *p, char *nb, t_cnt *c, int len)
 		if (p->zero)
 			(!p->plus) ? c->i += ft_put('0', p->wd - len - c->a - c->p) : 0;
 		else
-			c->i += ft_put(' ', p->wd - len - c->a - p->plus);
+			c->i += ft_put(' ', p->wd - len - c->a - p->plus - c->p);
 	}
 	if (!p->zero)
 		ft_printsign(p, nb, c);
